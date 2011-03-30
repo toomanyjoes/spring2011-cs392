@@ -1,0 +1,10 @@
+class VariableDescription {
+        public boolean set;
+        public boolean chg;
+        public String exp;
+        public VariableDescription(boolean value, boolean canChange, String explanation) {
+            set = value;
+            chg = canChange;
+            exp = explanation;
+        }
+}

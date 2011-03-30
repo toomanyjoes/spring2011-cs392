@@ -1,0 +1,141 @@
+import Jakarta.util.*;
+import java.io.*;
+import java.util.*;
+import com.google.gson.*;
+
+// This class provides a programming-interface to guidsl,
+// and avoids the display of the GUI itself.  It is to be used
+// for invoking the functionality of a guidsl tool.
+
+// basic approach:
+// Tool tool = new Tool( "modelFileName" );
+// boolean result = true/false -- result of the SAT test
+// SATtest t = new SATtest( "name of test" , result );
+// t.add( "featureName or -FeatureName); // loop over this
+// boolean output = true (for debugging)
+// if (tool.modelDebug(t, output)) ... else ...;
+
+/**
+* This class provides an entry-point for use in with a CGI script which
+* is useful in restrictive web publishing environments.
+* 
+* @author Samuel Palmer
+*/
+public class WebTool {
+static guidsl.Tool tool = null;
+   static boolean makeCnfFile = true;
+   static boolean compatSelections = true;
+
+    cnfModel model;
+	
+	public static void main(String args[]) {
+	  System.out.println("\n\n!!!!!!!\n\n");
+	  tool = new Tool( "gpl.m" );
+
+     // verifies that IPOW and BIGI are compatible
+      SATtest t = new SATtest( "test1", compatSelections, true );
+      t.add("MSTKruskal");
+      t.add("MSTPrim");
+      runTest( t, makeCnfFile );
+
+     // verifies that IPOW and -BIGI are incompatible
+      t = new SATtest( "test2", !compatSelections, true );
+      t.add("Directed");
+      t.add("-Directed");
+      runTest( t, !makeCnfFile );
+	}
+	static void runTest( SATtest t, boolean compat ) {
+      if (tool.modelDebug(t, makeCnfFile ))
+         System.out.println(t.getName() + " succeeded");
+      else
+         System.out.println(t.getName() + " failed");
+   }
+
+    public WebTool ( String modelFileName ) {
+
+        // Step 1: open the guidsl model file 
+
+        FileInputStream  inputFile = null;
+        try {
+            inputFile = new FileInputStream( modelFileName );
+        }
+        catch ( Exception e ) {
+            Util.fatalError( "File " + modelFileName + " not found:"
+               + e.getMessage() );
+        }
+
+        // Step 2: create a parser and parse input files
+        //         inputRoot is root of parse tree of input file
+
+        Parser myParser = Parser.getInstance( inputFile );
+        Model    inputRoot = null;
+        try {
+            inputRoot = ( Model ) myParser.parseAll() ;
+        }
+        catch ( Exception e ) {
+            Util.fatalError( "Parsing Exception Thrown in "
+                             + modelFileName + ": " + e.getMessage() );
+        }
+
+        // Step 3: transform parse tree here into the internal format
+
+        try {
+           Main.process( inputRoot );
+        }
+		  catch( SemanticException e ) {
+            int errorCnt = Util.errorCount();
+		      Util.fatalError( errorCnt + " error(s) found");
+		  }
+
+		  // Step 4: initialize any additional state variables
+
+        model = cnfModel.init();
+
+    } // end constructor
+
+   /**
+    *  @return serialized JSON Map of variable name/value explanation pairs   
+    */
+   public String modelExplanation( List selectedFeatures ) {
+       processUserSelections(selectedFeatures);
+       SATSolver s = new SATSolver(); 
+       List<variable> vars;
+       Map reasonMap = new HashMap();
+       try {
+       //solverTest.createOutputFile( model, test );
+        //           solverTest.checkModel();
+        grammar.propagate();
+         s.solve( solverTest.input2SATSolver );
+         int[] sModel = s.solver.model();
+         vars = new ArrayList(sModel.length);
+         //System.out.println("v "+reader.decode(model));
+
+         for(Iterator it = variable.Vtable.values().iterator(); it.hasNext();) {
+            variable var = (variable)it.next();
+                    //System.out.println("\n\n" + var.name);
+                 String explanation = var.explainValue();
+                 if(!explanation.isEmpty()) {
+                    boolean isSet = var.value == variable.T ? true : false;
+                    boolean isChangable = explanation.indexOf(var.name + " because set by user") != -1;
+                    reasonMap.put(var.name, new VariableDescription(isSet, isChangable, var.explainValue()));
+                 }
+         }
+       } catch(Exception e) {
+            e.printStackTrace();
+       }
+        
+        Gson gson = new Gson();
+        String result = gson.toJson(reasonMap);
+        //System.out.println(result);
+		return result;
+   }
+   
+   private void processUserSelections(List selectedFeatures) {
+        for(Iterator it = selectedFeatures.iterator(); it.hasNext();) {
+            String n = (String)it.next();
+            //variable var = variable.find(n);
+            //var.justify();
+            grammar.UserSelections.add(variable.find(n));
+        }
+   }
+}
