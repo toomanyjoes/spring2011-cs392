@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta content="text/html; charset=us-ascii" http-equiv=
+  "Content-Type" />
+
+  <title>Graph Product Line</title>
+  <meta content="Samuel Palmer and Joe Elizondo" name="author" />
+  <meta content="Graph Product Line (GPL) feature model" name=
+  "description" />
+  <meta content=
+  "graph product line, gpl, ahead, fop, feature oriented programming"
+  name="keywords" />
+  
+  <style type="text/css">
+    .featureDiv {
+        float: left;
+    }
+  </style>
+  
+  <script type="text/javascript" src="js/jquery-1.5.1.js"></script>
+  <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+  <script type="text/javascript">
+    var userSelections = new Array();
+    var modelVariables;
+    
+    function updateUI() {
+        $('input').attr('disabled', false);  // enable all inputs
+        for(feature in modelVariables) {
+            if ( $('input[id='+feature+']').length ) {
+                $('input[id='+feature+']').attr('checked', modelVariables[feature]['set']);
+            
+                // check if the user can change the variable
+                $('input[id='+feature+']').attr('disabled', !modelVariables[feature]['chg']);
+            }
+        }
+    }
+    
+    function buildSelectedString() {
+        var str = '';
+        for(feature in userSelections) {
+            if(userSelections[feature])
+                str += $('#'+feature).attr('value') + '=1&'
+        }
+        return str;
+    }
+    
+    function sendSelections() {
+        var selectedString = buildSelectedString();
+        $.blockUI();
+        $.ajax({ 
+            type: 'GET',
+            url: 'gpl.cgi', 
+            cache: false,
+            dataType: 'json',
+            data: selectedString,
+            success: function(variableMap) {
+                modelVariables = variableMap;
+                updateUI();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Error: " + textStatus);
+            },
+            complete: function() { 
+                $.unblockUI();   // unblock when remote call returns 
+            }
+        });
+    }
+    
+    $(document).ready(function() { 
+        
+        // init userSelections
+        $('input:radio').each(function() { 
+            userSelections[this.id] = false;
+        });
+        $('input:checkbox').each(function() {
+            userSelections[this.id] = false;
+        });
+        
+        // ask the server to re-calculate available features after selection
+        $('input:radio').click(function() {
+            //$(this).attr('checked', !$(this).attr('checked'));
+            userSelections[this.id] = !userSelections[this.id];
+            sendSelections();
+        });
+        $('input:checkbox').click(function() { 
+            userSelections[this.id] = !userSelections[this.id];
+            sendSelections();
+        });
+        
+        // put each input in a <div>. Needed to display hover reasons on disabled inputs
+        $('input').each(function() {
+            $(this).wrap('<div id="'+this.id+'div" name="'+this.id+'" class="featureDiv" />');
+        });
+        // setup explanation text when hover over the inputs
+        $('.featureDiv').hover(
+            function () {
+                $('#reason').html(modelVariables[$(this).attr('name')]['exp']);
+            }, 
+            function () {
+                $('#reason').text("");
+            }
+        );
+    });
+  </script>
+</head>
+
+<body>
+      <h1>The Graph Product Line<br /></h1>
+
+      <form enctype="application/x-www-form-urlencoded"
+      autocomplete="off" method="get" action="" name="gplForm">
+        <table style="width: 100%;" border="0">
+          <tbody>
+            <tr>
+              <td style="width: 11%">
+                <fieldset name="Algorithms">
+                  <legend>Algorithms</legend> <input value="Number"
+                  name="Number" id="Number" type="checkbox" /> <label for=
+                  "Number" form="gplForm">Number</label><br />
+                  <br />
+                  <input value="Connected" name="Connected" id="Connected" type=
+                  "checkbox" /> <label for="Connected" form=
+                  "gplForm">Connected</label><br />
+                  <br />
+                  <input value="StrongC" name="StrongC" id="StrongC" type=
+                  "checkbox" /> <label for="StrongC" form=
+                  "gplForm">StrongC</label><br />
+                  <br />
+                  <input value="Cycle" name="Cycle" id="Cycle" type=
+                  "checkbox" /> <label for="Cycle" form=
+                  "gplForm">Cycle</label><br />
+                  <br />
+                  <input value=
+                  "MstPrim" name="MstPrim" id="MstPrim" type=
+                  "checkbox" /><label for="MstPrim" form="gplForm">MstPrim</label><br />
+                  <br />
+                  <input value="MstKruskal" name=
+                  "MstKruskal" id="MstKruskal" type="checkbox" />
+                  <label for="MstKruskal" form=
+                  "gplForm">MstKruskal</label>
+                </fieldset>
+              </td>
+
+              <td style="width: 11%;">
+                <fieldset name="Src">
+                  <legend>Src</legend> <input value="BFS" name=
+                  "BFS" id="BFS" type="checkbox" /> <label for="BFS" form=
+                  "gplForm">BFS</label><br />
+                  <br />
+                  <input value="DFS" name="DFS" id="DFS" type="checkbox" />
+                  <label for="DFS" form="gplForm">DFS</label>
+                </fieldset>
+              </td>
+
+              <td style="width: 11%;">
+                <fieldset name="Wgt">
+                  <legend>Wgt</legend> <input value="Weighted"
+                  name="Weight" type="radio" id="Weighted" />
+                  <label for="Weighted" form=
+                  "gplForm">Weighted</label><br />
+                  <br />
+                  <input value="Unweighted" name="Weight" type=
+                  "radio" id="Unweighted" /> <label for=
+                  "Unweighted" form="gplForm">Unweighted</label>
+                </fieldset>
+              </td>
+
+              <td style="width: 11%;">
+                <fieldset name="Gtp">
+                  <legend>Gtp</legend> <input value="Directed"
+                  name="Directed" type="radio" id="Directed" /> <label for=
+                  "Directed" form="gplForm">Directed</label><br />
+                  <br />
+                  <input value="Undirected" name="Directed" type=
+                  "radio" id="Undirected" /> <label for="Undirected" form=
+                  "gplForm">Undirected</label>
+                </fieldset>
+              </td>
+
+              <td style="width: 11%;">
+                <fieldset name="ImplementationField">
+                  <legend>Implementation</legend> <input value=
+                  "AL" name="Implementation" id="AL" type=
+                  "radio" /> <label for="AL" form=
+                  "gplForm">Only Vertices (AL)</label><br />
+                  <br />
+                  <input value="NL" name="Implementation" id="NL"
+                  type="radio" /> <label for="NL"
+                  form="gplForm">With Neighbors (NL)</label><br />
+				  <br />
+                  <input value="EL" name="Implementation" id="EL" type=
+                  "radio" /> <label for="EL" form=
+                  "gplForm">With Edges (EL)</label>
+                </fieldset>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      <div id="reason"></div>
+</body>
+</html>

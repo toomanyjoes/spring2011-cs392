@@ -22,5 +22,6 @@ dsl/guidsl/solver
 dsl/guidsl/cnfFormat
 dsl/guidsl/modelopts
 dsl/guidsl/tool
+dsl/guidsl/webtool
 dsl/guidsl/ordergs
 dsl/guidsl/cubeInterface
