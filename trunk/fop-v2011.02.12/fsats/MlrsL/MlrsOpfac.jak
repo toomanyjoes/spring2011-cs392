@@ -1,8 +1,0 @@
-layer MlrsL;
-
-public class MlrsOpfac extends WeaponOpfac {
-    public Mission newMission() 
-        {
-        return new MlrsMission();
-    }
-}

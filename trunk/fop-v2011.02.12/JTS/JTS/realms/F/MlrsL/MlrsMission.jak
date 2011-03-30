@@ -1,5 +1,0 @@
-package MlrsL;
-
-
-
-    public state_machine MlrsMission extends WeaponMission {}

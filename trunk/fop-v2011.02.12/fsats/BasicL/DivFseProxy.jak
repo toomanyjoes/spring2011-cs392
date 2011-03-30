@@ -1,9 +1,0 @@
-layer BasicL;
-
-import java.util.*;
-
-import laydown.*;
-
-import log.Log;
-
-public class DivFseProxy extends FseProxy {}

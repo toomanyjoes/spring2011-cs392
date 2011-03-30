@@ -1,3 +1,0 @@
-layer ArtilleryL;
-
-public State_machine FaPltMission extends WeaponMission {}

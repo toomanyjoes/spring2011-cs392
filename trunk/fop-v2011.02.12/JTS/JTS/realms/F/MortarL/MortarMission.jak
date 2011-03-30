@@ -1,5 +1,0 @@
-package MortarL;
-
-
-
-    public state_machine MortarMission extends WeaponMission {}

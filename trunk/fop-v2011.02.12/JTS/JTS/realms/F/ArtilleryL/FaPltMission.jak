@@ -1,5 +1,0 @@
-package ArtilleryL;
-
-
-
-    public state_machine FaPltMission extends WeaponMission {}
