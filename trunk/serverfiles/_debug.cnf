@@ -1,0 +1,406 @@
+p cnf 69 165 
+c c 1 GPL
+c c 2 MainGpl
+c c 3 Prog
+c c 4 Benchmark
+c c 5 Alg
+c c 6 Src
+c c 7 HiddenWgt
+c c 8 Wgt
+c c 9 HiddenGtp
+c c 10 Gtp
+c c 11 Implementation
+c c 12 Base
+c c 13 _AL
+c c 14 AL
+c c 15 _NL
+c c 16 NL
+c c 17 _EL
+c c 18 EL
+c c 19 _Directed
+c c 20 Directed
+c c 21 _Undirected
+c c 22 Undirected
+c c 23 _DirectedEL
+c c 24 DirectedEL
+c c 25 _DirectedNL
+c c 26 DirectedNL
+c c 27 _DirectedAL
+c c 28 DirectedAL
+c c 29 _UndirectedEL
+c c 30 UndirectedEL
+c c 31 _UndirectedNL
+c c 32 UndirectedNL
+c c 33 _UndirectedAL
+c c 34 UndirectedAL
+c c 35 _Weighted
+c c 36 Weighted
+c c 37 _Unweighted
+c c 38 Unweighted
+c c 39 WeightOptions
+c c 40 WeightedEL
+c c 41 WeightedNL
+c c 42 WeightedAL
+c c 43 _BFS
+c c 44 BFS
+c c 45 _DFS
+c c 46 DFS
+c c 47 _Number
+c c 48 Number
+c c 49 _Connected
+c c 50 Connected
+c c 51 StrongC
+c c 52 StronglyConnected
+c c 53 Transpose
+c c 54 _Cycle
+c c 55 Cycle
+c c 56 MSTPrim
+c c 57 MstPrim
+c c 58 PrimOpts
+c c 59 MstKruskal
+c c 60 MSTKruskal
+c c 61 KruskOpts
+c c 62 _MSTPrimAL
+c c 63 MSTPrimAL
+c c 64 _MSTPrimNL
+c c 65 MSTPrimNL
+c c 66 _MSTKruskalAL
+c c 67 MSTKruskalAL
+c c 68 _MSTKruskalNL
+c c 69 MSTKruskalNL
+c ((Gtp iff (_Undirected or _Directed)) and atmostone(_Undirected,_Directed))
+c ((not Gtp or _Undirected or _Directed) and ((not _Undirected and not _Directed) or Gtp) and (not _Undirected or not _Directed))
+c x ((not Gtp or _Undirected or _Directed) and (not _Undirected or Gtp) and (not _Directed or Gtp) and (not _Undirected or not _Directed))
+-10 21 19  0
+-21 10  0
+-19 10  0
+-21 -19  0
+c ((PrimOpts iff (_MSTPrimNL or _MSTPrimAL)) and atmostone(_MSTPrimNL,_MSTPrimAL))
+c ((not PrimOpts or _MSTPrimNL or _MSTPrimAL) and ((not _MSTPrimNL and not _MSTPrimAL) or PrimOpts) and (not _MSTPrimNL or not _MSTPrimAL))
+c x ((not PrimOpts or _MSTPrimNL or _MSTPrimAL) and (not _MSTPrimNL or PrimOpts) and (not _MSTPrimAL or PrimOpts) and (not _MSTPrimNL or not _MSTPrimAL))
+-58 64 62  0
+-64 58  0
+-62 58  0
+-64 -62  0
+c (GPL iff MainGpl)
+c ((not GPL or MainGpl) and (not MainGpl or GPL))
+c x ((not GPL or MainGpl) and (not MainGpl or GPL))
+-1 2  0
+-2 1  0
+c ((KruskOpts iff (_MSTKruskalNL or _MSTKruskalAL)) and atmostone(_MSTKruskalNL,_MSTKruskalAL))
+c ((not KruskOpts or _MSTKruskalNL or _MSTKruskalAL) and ((not _MSTKruskalNL and not _MSTKruskalAL) or KruskOpts) and (not _MSTKruskalNL or not _MSTKruskalAL))
+c x ((not KruskOpts or _MSTKruskalNL or _MSTKruskalAL) and (not _MSTKruskalNL or KruskOpts) and (not _MSTKruskalAL or KruskOpts) and (not _MSTKruskalNL or not _MSTKruskalAL))
+-61 68 66  0
+-68 61  0
+-66 61  0
+-68 -66  0
+c ((HiddenGtp iff (_UndirectedAL or _UndirectedNL or _UndirectedEL or _DirectedAL or _DirectedNL or _DirectedEL)) and atmostone(_UndirectedAL,_UndirectedNL,_UndirectedEL,_DirectedAL,_DirectedNL,_DirectedEL))
+c ((not HiddenGtp or _UndirectedAL or _UndirectedNL or _UndirectedEL or _DirectedAL or _DirectedNL or _DirectedEL) and ((not _UndirectedAL and not _UndirectedNL and not _UndirectedEL and not _DirectedAL and not _DirectedNL and not _DirectedEL) or HiddenGtp) and (not _UndirectedAL or not _UndirectedNL) and (not _UndirectedAL or not _UndirectedEL) and (not _UndirectedAL or not _DirectedAL) and (not _UndirectedAL or not _DirectedNL) and (not _UndirectedAL or not _DirectedEL) and (not _UndirectedNL or not _UndirectedEL) and (not _UndirectedNL or not _DirectedAL) and (not _UndirectedNL or not _DirectedNL) and (not _UndirectedNL or not _DirectedEL) and (not _UndirectedEL or not _DirectedAL) and (not _UndirectedEL or not _DirectedNL) and (not _UndirectedEL or not _DirectedEL) and (not _DirectedAL or not _DirectedNL) and (not _DirectedAL or not _DirectedEL) and (not _DirectedNL or not _DirectedEL))
+c x ((not HiddenGtp or _UndirectedAL or _UndirectedNL or _UndirectedEL or _DirectedAL or _DirectedNL or _DirectedEL) and (not _UndirectedAL or HiddenGtp) and (not _UndirectedNL or HiddenGtp) and (not _UndirectedEL or HiddenGtp) and (not _DirectedAL or HiddenGtp) and (not _DirectedNL or HiddenGtp) and (not _DirectedEL or HiddenGtp) and (not _UndirectedAL or not _UndirectedNL) and (not _UndirectedAL or not _UndirectedEL) and (not _UndirectedAL or not _DirectedAL) and (not _UndirectedAL or not _DirectedNL) and (not _UndirectedAL or not _DirectedEL) and (not _UndirectedNL or not _UndirectedEL) and (not _UndirectedNL or not _DirectedAL) and (not _UndirectedNL or not _DirectedNL) and (not _UndirectedNL or not _DirectedEL) and (not _UndirectedEL or not _DirectedAL) and (not _UndirectedEL or not _DirectedNL) and (not _UndirectedEL or not _DirectedEL) and (not _DirectedAL or not _DirectedNL) and (not _DirectedAL or not _DirectedEL) and (not _DirectedNL or not _DirectedEL))
+-9 33 31 29 27 25 23  0
+-33 9  0
+-31 9  0
+-29 9  0
+-27 9  0
+-25 9  0
+-23 9  0
+-33 -31  0
+-33 -29  0
+-33 -27  0
+-33 -25  0
+-33 -23  0
+-31 -29  0
+-31 -27  0
+-31 -25  0
+-31 -23  0
+-29 -27  0
+-29 -25  0
+-29 -23  0
+-27 -25  0
+-27 -23  0
+-25 -23  0
+c (HiddenWgt iff WeightOptions)
+c ((not HiddenWgt or WeightOptions) and (not WeightOptions or HiddenWgt))
+c x ((not HiddenWgt or WeightOptions) and (not WeightOptions or HiddenWgt))
+-7 39  0
+-39 7  0
+c ((Src iff (_DFS or _BFS)) and atmostone(_DFS,_BFS))
+c ((not Src or _DFS or _BFS) and ((not _DFS and not _BFS) or Src) and (not _DFS or not _BFS))
+c x ((not Src or _DFS or _BFS) and (not _DFS or Src) and (not _BFS or Src) and (not _DFS or not _BFS))
+-6 45 43  0
+-45 6  0
+-43 6  0
+-45 -43  0
+c (Alg iff (MstKruskal or MSTPrim or _Cycle or StrongC or _Connected or _Number))
+c ((not Alg or MstKruskal or MSTPrim or _Cycle or StrongC or _Connected or _Number) and ((not MstKruskal and not MSTPrim and not _Cycle and not StrongC and not _Connected and not _Number) or Alg))
+c x ((not Alg or MstKruskal or MSTPrim or _Cycle or StrongC or _Connected or _Number) and (not MstKruskal or Alg) and (not MSTPrim or Alg) and (not _Cycle or Alg) and (not StrongC or Alg) and (not _Connected or Alg) and (not _Number or Alg))
+-5 59 56 54 51 49 47  0
+-59 5  0
+-56 5  0
+-54 5  0
+-51 5  0
+-49 5  0
+-47 5  0
+c ((Implementation iff (_EL or _NL or _AL)) and atmostone(_EL,_NL,_AL))
+c ((not Implementation or _EL or _NL or _AL) and ((not _EL and not _NL and not _AL) or Implementation) and (not _EL or not _NL) and (not _EL or not _AL) and (not _NL or not _AL))
+c x ((not Implementation or _EL or _NL or _AL) and (not _EL or Implementation) and (not _NL or Implementation) and (not _AL or Implementation) and (not _EL or not _NL) and (not _EL or not _AL) and (not _NL or not _AL))
+-11 17 15 13  0
+-17 11  0
+-15 11  0
+-13 11  0
+-17 -15  0
+-17 -13  0
+-15 -13  0
+c ((Wgt iff (_Unweighted or _Weighted)) and atmostone(_Unweighted,_Weighted))
+c ((not Wgt or _Unweighted or _Weighted) and ((not _Unweighted and not _Weighted) or Wgt) and (not _Unweighted or not _Weighted))
+c x ((not Wgt or _Unweighted or _Weighted) and (not _Unweighted or Wgt) and (not _Weighted or Wgt) and (not _Unweighted or not _Weighted))
+-8 37 35  0
+-37 8  0
+-35 8  0
+-37 -35  0
+c (_AL iff AL)
+c ((not _AL or AL) and (not AL or _AL))
+c x ((not _AL or AL) and (not AL or _AL))
+-13 14  0
+-14 13  0
+c (_Undirected iff Undirected)
+c ((not _Undirected or Undirected) and (not Undirected or _Undirected))
+c x ((not _Undirected or Undirected) and (not Undirected or _Undirected))
+-21 22  0
+-22 21  0
+c ((MSTPrim iff MstPrim) and (PrimOpts) implies (MSTPrim))
+c ((not MSTPrim or MstPrim) and (not MstPrim or MSTPrim) and (not PrimOpts or MSTPrim))
+c x ((not MSTPrim or MstPrim) and (not MstPrim or MSTPrim) and (not PrimOpts or MSTPrim))
+-56 57  0
+-57 56  0
+-58 56  0
+c (_MSTPrimAL iff MSTPrimAL)
+c ((not _MSTPrimAL or MSTPrimAL) and (not MSTPrimAL or _MSTPrimAL))
+c x ((not _MSTPrimAL or MSTPrimAL) and (not MSTPrimAL or _MSTPrimAL))
+-62 63  0
+-63 62  0
+c (_UndirectedAL iff UndirectedAL)
+c ((not _UndirectedAL or UndirectedAL) and (not UndirectedAL or _UndirectedAL))
+c x ((not _UndirectedAL or UndirectedAL) and (not UndirectedAL or _UndirectedAL))
+-33 34  0
+-34 33  0
+c (_Directed iff Directed)
+c ((not _Directed or Directed) and (not Directed or _Directed))
+c x ((not _Directed or Directed) and (not Directed or _Directed))
+-19 20  0
+-20 19  0
+c (_Unweighted iff Unweighted)
+c ((not _Unweighted or Unweighted) and (not Unweighted or _Unweighted))
+c x ((not _Unweighted or Unweighted) and (not Unweighted or _Unweighted))
+-37 38  0
+-38 37  0
+c (_Weighted iff Weighted)
+c ((not _Weighted or Weighted) and (not Weighted or _Weighted))
+c x ((not _Weighted or Weighted) and (not Weighted or _Weighted))
+-35 36  0
+-36 35  0
+c ((MainGpl iff Prog) and (MainGpl iff Benchmark) and (MainGpl iff Alg) and (Src) implies (MainGpl) and (MainGpl iff HiddenWgt) and (MainGpl iff Wgt) and (MainGpl iff HiddenGtp) and (MainGpl iff Gtp) and (MainGpl iff Implementation) and (MainGpl iff Base))
+c ((not MainGpl or Prog) and (not Prog or MainGpl) and (not MainGpl or Benchmark) and (not Benchmark or MainGpl) and (not MainGpl or Alg) and (not Alg or MainGpl) and (not Src or MainGpl) and (not MainGpl or HiddenWgt) and (not HiddenWgt or MainGpl) and (not MainGpl or Wgt) and (not Wgt or MainGpl) and (not MainGpl or HiddenGtp) and (not HiddenGtp or MainGpl) and (not MainGpl or Gtp) and (not Gtp or MainGpl) and (not MainGpl or Implementation) and (not Implementation or MainGpl) and (not MainGpl or Base) and (not Base or MainGpl))
+c x ((not MainGpl or Prog) and (not Prog or MainGpl) and (not MainGpl or Benchmark) and (not Benchmark or MainGpl) and (not MainGpl or Alg) and (not Alg or MainGpl) and (not Src or MainGpl) and (not MainGpl or HiddenWgt) and (not HiddenWgt or MainGpl) and (not MainGpl or Wgt) and (not Wgt or MainGpl) and (not MainGpl or HiddenGtp) and (not HiddenGtp or MainGpl) and (not MainGpl or Gtp) and (not Gtp or MainGpl) and (not MainGpl or Implementation) and (not Implementation or MainGpl) and (not MainGpl or Base) and (not Base or MainGpl))
+-2 3  0
+-3 2  0
+-2 4  0
+-4 2  0
+-2 5  0
+-5 2  0
+-6 2  0
+-2 7  0
+-7 2  0
+-2 8  0
+-8 2  0
+-2 9  0
+-9 2  0
+-2 10  0
+-10 2  0
+-2 11  0
+-11 2  0
+-2 12  0
+-12 2  0
+c (_BFS iff BFS)
+c ((not _BFS or BFS) and (not BFS or _BFS))
+c x ((not _BFS or BFS) and (not BFS or _BFS))
+-43 44  0
+-44 43  0
+c (_DirectedNL iff DirectedNL)
+c ((not _DirectedNL or DirectedNL) and (not DirectedNL or _DirectedNL))
+c x ((not _DirectedNL or DirectedNL) and (not DirectedNL or _DirectedNL))
+-25 26  0
+-26 25  0
+c ((WeightedEL) implies (WeightOptions) and (WeightedNL) implies (WeightOptions) and (WeightedAL) implies (WeightOptions))
+c ((not WeightedEL or WeightOptions) and (not WeightedNL or WeightOptions) and (not WeightedAL or WeightOptions))
+c x ((not WeightedEL or WeightOptions) and (not WeightedNL or WeightOptions) and (not WeightedAL or WeightOptions))
+-40 39  0
+-41 39  0
+-42 39  0
+c (_EL iff EL)
+c ((not _EL or EL) and (not EL or _EL))
+c x ((not _EL or EL) and (not EL or _EL))
+-17 18  0
+-18 17  0
+c (_DFS iff DFS)
+c ((not _DFS or DFS) and (not DFS or _DFS))
+c x ((not _DFS or DFS) and (not DFS or _DFS))
+-45 46  0
+-46 45  0
+c ((MstKruskal iff MSTKruskal) and (KruskOpts) implies (MstKruskal))
+c ((not MstKruskal or MSTKruskal) and (not MSTKruskal or MstKruskal) and (not KruskOpts or MstKruskal))
+c x ((not MstKruskal or MSTKruskal) and (not MSTKruskal or MstKruskal) and (not KruskOpts or MstKruskal))
+-59 60  0
+-60 59  0
+-61 59  0
+c (_DirectedEL iff DirectedEL)
+c ((not _DirectedEL or DirectedEL) and (not DirectedEL or _DirectedEL))
+c x ((not _DirectedEL or DirectedEL) and (not DirectedEL or _DirectedEL))
+-23 24  0
+-24 23  0
+c (_UndirectedEL iff UndirectedEL)
+c ((not _UndirectedEL or UndirectedEL) and (not UndirectedEL or _UndirectedEL))
+c x ((not _UndirectedEL or UndirectedEL) and (not UndirectedEL or _UndirectedEL))
+-29 30  0
+-30 29  0
+c (_Number iff Number)
+c ((not _Number or Number) and (not Number or _Number))
+c x ((not _Number or Number) and (not Number or _Number))
+-47 48  0
+-48 47  0
+c (_MSTKruskalAL iff MSTKruskalAL)
+c ((not _MSTKruskalAL or MSTKruskalAL) and (not MSTKruskalAL or _MSTKruskalAL))
+c x ((not _MSTKruskalAL or MSTKruskalAL) and (not MSTKruskalAL or _MSTKruskalAL))
+-66 67  0
+-67 66  0
+c (_Cycle iff Cycle)
+c ((not _Cycle or Cycle) and (not Cycle or _Cycle))
+c x ((not _Cycle or Cycle) and (not Cycle or _Cycle))
+-54 55  0
+-55 54  0
+c (_UndirectedNL iff UndirectedNL)
+c ((not _UndirectedNL or UndirectedNL) and (not UndirectedNL or _UndirectedNL))
+c x ((not _UndirectedNL or UndirectedNL) and (not UndirectedNL or _UndirectedNL))
+-31 32  0
+-32 31  0
+c (_MSTPrimNL iff MSTPrimNL)
+c ((not _MSTPrimNL or MSTPrimNL) and (not MSTPrimNL or _MSTPrimNL))
+c x ((not _MSTPrimNL or MSTPrimNL) and (not MSTPrimNL or _MSTPrimNL))
+-64 65  0
+-65 64  0
+c ((StrongC iff StronglyConnected) and (StrongC iff Transpose))
+c ((not StrongC or StronglyConnected) and (not StronglyConnected or StrongC) and (not StrongC or Transpose) and (not Transpose or StrongC))
+c x ((not StrongC or StronglyConnected) and (not StronglyConnected or StrongC) and (not StrongC or Transpose) and (not Transpose or StrongC))
+-51 52  0
+-52 51  0
+-51 53  0
+-53 51  0
+c (_NL iff NL)
+c ((not _NL or NL) and (not NL or _NL))
+c x ((not _NL or NL) and (not NL or _NL))
+-15 16  0
+-16 15  0
+c (_DirectedAL iff DirectedAL)
+c ((not _DirectedAL or DirectedAL) and (not DirectedAL or _DirectedAL))
+c x ((not _DirectedAL or DirectedAL) and (not DirectedAL or _DirectedAL))
+-27 28  0
+-28 27  0
+c (_MSTKruskalNL iff MSTKruskalNL)
+c ((not _MSTKruskalNL or MSTKruskalNL) and (not MSTKruskalNL or _MSTKruskalNL))
+c x ((not _MSTKruskalNL or MSTKruskalNL) and (not MSTKruskalNL or _MSTKruskalNL))
+-68 69  0
+-69 68  0
+c (_Connected iff Connected)
+c ((not _Connected or Connected) and (not Connected or _Connected))
+c x ((not _Connected or Connected) and (not Connected or _Connected))
+-49 50  0
+-50 49  0
+c (Number) implies ((Gtp and Src))
+c (not Number or (Gtp and Src))
+c x ((not Number or Gtp) and (not Number or Src))
+-48 10  0
+-48 6  0
+c (Connected) implies ((Undirected and Src))
+c (not Connected or (Undirected and Src))
+c x ((not Connected or Undirected) and (not Connected or Src))
+-50 22  0
+-50 6  0
+c (StrongC) implies ((Directed and DFS))
+c (not StrongC or (Directed and DFS))
+c x ((not StrongC or Directed) and (not StrongC or DFS))
+-51 20  0
+-51 46  0
+c (Cycle) implies ((Gtp and DFS))
+c (not Cycle or (Gtp and DFS))
+c x ((not Cycle or Gtp) and (not Cycle or DFS))
+-55 10  0
+-55 46  0
+c ((MSTKruskal or MSTPrim)) implies ((Undirected and Weighted))
+c ((not MSTKruskal and not MSTPrim) or (Undirected and Weighted))
+c x ((not MSTKruskal or Undirected) and (not MSTKruskal or Weighted) and (not MSTPrim or Undirected) and (not MSTPrim or Weighted))
+-60 22  0
+-60 36  0
+-56 22  0
+-56 36  0
+c ((MSTKruskal or MSTPrim)) implies (not ((MSTKruskal and MSTPrim)))
+c ((not MSTKruskal and not MSTPrim) or not MSTKruskal or not MSTPrim)
+c x ((not MSTKruskal or not MSTKruskal or not MSTPrim) and (not MSTPrim or not MSTKruskal or not MSTPrim))
+-60 -60 -56  0
+-56 -60 -56  0
+c ((AL and Weighted)) implies (WeightedAL)
+c (not AL or not Weighted or WeightedAL)
+c x (not AL or not Weighted or WeightedAL)
+-14 -36 42  0
+c ((NL and Weighted)) implies (WeightedNL)
+c (not NL or not Weighted or WeightedNL)
+c x (not NL or not Weighted or WeightedNL)
+-16 -36 41  0
+c ((EL and Weighted)) implies (WeightedEL)
+c (not EL or not Weighted or WeightedEL)
+c x (not EL or not Weighted or WeightedEL)
+-18 -36 40  0
+c ((AL and Directed)) implies (DirectedAL)
+c (not AL or not Directed or DirectedAL)
+c x (not AL or not Directed or DirectedAL)
+-14 -20 28  0
+c ((NL and Directed)) implies (DirectedNL)
+c (not NL or not Directed or DirectedNL)
+c x (not NL or not Directed or DirectedNL)
+-16 -20 26  0
+c ((EL and Directed)) implies (DirectedEL)
+c (not EL or not Directed or DirectedEL)
+c x (not EL or not Directed or DirectedEL)
+-18 -20 24  0
+c ((AL and Undirected)) implies (UndirectedAL)
+c (not AL or not Undirected or UndirectedAL)
+c x (not AL or not Undirected or UndirectedAL)
+-14 -22 34  0
+c ((NL and Undirected)) implies (UndirectedNL)
+c (not NL or not Undirected or UndirectedNL)
+c x (not NL or not Undirected or UndirectedNL)
+-16 -22 32  0
+c ((EL and Undirected)) implies (UndirectedEL)
+c (not EL or not Undirected or UndirectedEL)
+c x (not EL or not Undirected or UndirectedEL)
+-18 -22 30  0
+c ((AL and MSTPrim)) implies (MSTPrimAL)
+c (not AL or not MSTPrim or MSTPrimAL)
+c x (not AL or not MSTPrim or MSTPrimAL)
+-14 -56 63  0
+c ((NL and MSTPrim)) implies (MSTPrimNL)
+c (not NL or not MSTPrim or MSTPrimNL)
+c x (not NL or not MSTPrim or MSTPrimNL)
+-16 -56 65  0
+c ((AL and MSTKruskal)) implies (MSTKruskalAL)
+c (not AL or not MSTKruskal or MSTKruskalAL)
+c x (not AL or not MSTKruskal or MSTKruskalAL)
+-14 -60 67  0
+c ((NL and MSTKruskal)) implies (MSTKruskalNL)
+c (not NL or not MSTKruskal or MSTKruskalNL)
+c x (not NL or not MSTKruskal or MSTKruskalNL)
+-16 -60 69  0
+c x GPL
+1 0
+c x MSTPrim
+56 0
+
