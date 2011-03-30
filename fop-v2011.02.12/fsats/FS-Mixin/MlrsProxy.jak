@@ -1,9 +1,0 @@
-layer FS;
-
-SoUrCe RooT MlrsL "C:!Java!FeatureOrientedProgramming!fsats!MlrsL!MlrsProxy.jak";
-
-public class MlrsProxy extends WeaponProxy {
-    public int typePrecedence() {
-        return 2;
-    }
-}

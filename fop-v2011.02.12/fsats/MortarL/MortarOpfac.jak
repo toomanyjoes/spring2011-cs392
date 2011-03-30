@@ -1,8 +1,0 @@
-layer MortarL;
-
-public class MortarOpfac extends WeaponOpfac {
-    public Mission newMission() 
-        {
-        return new MortarMission();
-    }
-}

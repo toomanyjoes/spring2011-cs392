@@ -1,7 +1,0 @@
-layer ArtilleryL;
-
-public class FaPltProxy extends WeaponProxy {
-    public int typePrecedence() {
-        return 3;
-    }
-}

@@ -1,9 +1,0 @@
-layer FS;
-
-import laydown.*;
-
-import java.util.*;
-
-SoUrCe RooT FsatsL "C:!Java!FeatureOrientedProgramming!fsats!FsatsL!MissionTypeInterface.jak";
-
-public interface MissionTypeInterface {}
