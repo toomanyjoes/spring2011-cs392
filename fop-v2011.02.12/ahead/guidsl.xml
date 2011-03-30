@@ -75,6 +75,10 @@
     <property 
 	name="jar.sat4j"
 	location="${dir.misc}/lib/sat4j.jar"/>
+    
+    <property 
+	name="jar.gson"
+	location="${dir.misc}/lib/gson-1.6.jar"/>
 
     <property 
 	name="exe.spin"
@@ -132,6 +136,7 @@
 
 	 <property name="uri.jar.jakarta"	value="file:jakarta.jar"/>
 	 <property name="uri.jar.sat4j"     value="file:sat4j.jar"/>
+     <property name="uri.jar.gson"     value="file:gson-1.6.jar"/>
 
     <!-- ================================================================= -->
     <!-- TARGETS:                                                          -->
@@ -381,7 +386,7 @@
             <attribute name="Build-Username"   value="${user.name}"/>
             <attribute name="Copyright-Notice" value="${project.copyright}"/>
             <attribute name="Main-Class"       value="${project.name}.Main"/>
-            <attribute name="Class-Path"       value="${uri.jar.jakarta} ${uri.jar.sat4j}"/>       
+            <attribute name="Class-Path"       value="${uri.jar.jakarta} ${uri.jar.sat4j} ${uri.jar.gson}"/>       
         </manifest>
 
         <echo message="${mf.build}" taskname="===>"/>
@@ -401,6 +406,7 @@
 	<mkdir dir="${dir.build.source}"/>
 
 	<copy file="${jar.sat4j}" todir="${dir.build.lib}"/>
+    <copy file="${jar.gson}" todir="${dir.build.lib}"/>
 	<copy file="${exe.spin}"  todir="${dir.build.bin}"/>
     </target>
 
