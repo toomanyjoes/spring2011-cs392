@@ -1,9 +1,0 @@
-layer one;
-
-SoUrCe RooT one "./Aclass.jak";
-// extends
-abstract class x$$one implements y  { }
-
-SoUrCe  two "./Bclass.jak";
-// nochange
- class x extends  x$$one  implements y { }

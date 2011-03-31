@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<project name="GPL Web Interface" default="webgpl">
+
+ <description>
+    Builds the GPL web interface.
+ </description>
+ 
+    <property name="dir.ahead"             location="${basedir}/fop-v2011.02.12/ahead"/>
+    <property name="dir.ahead.build.lib"   location="${dir.ahead}/build/lib"/>
+    
+    <property name="webdsl.src" location="${basedir}/serverfiles"/>
+    <property name="webdsl.src.js" location="${webdsl.src}/js"/>
+
+    <property name="dir.build"       location="${basedir}/build"/>  <!-- drop the contents of this folder on your server -->
+    <property name="dir.build.lib"	 location="${dir.build}/lib"/>
+    <property name="dir.build.classes"	 location="${dir.build}"/>
+    <property name="dir.build.js"    location="${dir.build}/js"/>
+    <property name="dir.build.tmp"   location="${dir.build}/tmp"/>
+    
+    <path id="classpath">
+        <fileset dir="${dir.ahead.build.lib}" includes="**/*.jar"/>
+    </path>
+
+    <!-- - - - - - - - - - - - - - - -->
+    <!-- External Libraries & Tools: -->
+    <!-- - - - - - - - - - - - - - - -->
+
+    <property name="dir.ant"		location="${ant.home}"/>
+    <property name="dir.ant.lib"	location="${dir.ant}/lib"/>
+
+    <target name="all"
+        depends="ahead,webgpl"
+	description=""/>
+
+    <target
+            name="ahead"
+            description="Builds the entire AHEAD Tool Suite.">
+        <ant dir="${dir.ahead}" inheritall="false"/>
+    </target>
+    
+    <target
+        name="guidsl"
+        description="Builds the GuiDsl AHEAD Tool.">
+        <ant dir="${dir.ahead}" target="guidsl" inheritall="false"/>
+    </target>
+    
+    <target
+        name="webgpl"
+        depends="copy.files"
+        description="Builds the web GPL program.">
+        <mkdir dir="${dir.build.classes}"/>
+        <javac srcdir="${webdsl.src}" destdir="${dir.build.classes}" classpathref="classpath" includeantruntime="false"/>
+    </target>
+    
+    <target name="copy.files">
+        <mkdir dir="${dir.build.lib}"/>
+        <mkdir dir="${dir.build.js}"/>
+        <mkdir dir="${dir.build.js}"/>
+        <mkdir dir="${dir.build.tmp}"/>
+        <copy todir="${dir.build}">
+            <fileset dir="${webdsl.src}">
+                <include name="*.cnf"/>
+                <include name="*.cgi"/>
+                <include name="*.py"/>
+                <include name="*.html"/>
+                <include name="*.m"/>
+            </fileset>
+        </copy>
+        <copy todir="${dir.build.lib}">
+            <fileset dir="${dir.ahead.build.lib}">
+                <include name="jakarta.jar"/>
+                <include name="gson-1.6.jar"/>
+                <include name="sat4j.jar"/>
+                <include name="guidsl.jar"/>
+            </fileset>
+        </copy>
+        <copy todir="${dir.build.js}">
+            <fileset dir="${webdsl.src.js}">
+                <include name="**/*.js"/>
+            </fileset>
+        </copy>
+    </target>
+    
+    <target name="clean-all"
+    depends="clean"
+	description="Deletes generated files and scratch files.">
+        <ant dir="${dir.ahead}" target="clean" inheritall="false"/>
+    </target>
+        
+    <target name="clean"
+        description="Cleans only serverfiles/build">
+        <delete includeEmptyDirs="true" quiet="true">
+            <fileset dir="${dir.build}"/>
+        </delete>
+    </target>
+</project>

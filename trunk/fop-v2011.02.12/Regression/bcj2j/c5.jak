@@ -1,6 +1,0 @@
-layer i1;
-
-refines class foo { 
-   foo() { int x = this.bar(); }
-   int bar() { return this.bar(); }
-}

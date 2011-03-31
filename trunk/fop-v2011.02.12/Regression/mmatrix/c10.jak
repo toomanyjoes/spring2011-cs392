@@ -1,9 +1,0 @@
-// tests nested classes
-
-class c9 {
-   final interface nested { 
-	   void foo();
-		final int v = 4;
-   }
-   void foo() { }
-}

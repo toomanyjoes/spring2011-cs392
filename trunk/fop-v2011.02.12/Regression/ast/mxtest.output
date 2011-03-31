@@ -1,3 +1,0 @@
-LangSym = 
-	5 - "LangSym" + ReplaceMe * "ReplaceMe"
-s = Lang.foo

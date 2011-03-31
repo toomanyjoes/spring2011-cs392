@@ -1,6 +1,0 @@
-layer i1;
-
-class foo extends biff { 
-   foo() { int x = this.bar(); }
-   int bar() { return this.bar(); }
-}

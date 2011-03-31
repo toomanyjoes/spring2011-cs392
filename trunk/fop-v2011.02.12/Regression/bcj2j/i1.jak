@@ -1,5 +1,0 @@
-layer i1;
-
-interface foo { 
-   void bar();
-}

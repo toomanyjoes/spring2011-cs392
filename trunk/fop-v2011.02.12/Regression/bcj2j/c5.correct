@@ -1,6 +1,0 @@
-
-
- class foo extends stub.foo  { 
-   foo() { int x = ((foo) this).bar(); }
-   int bar() { return ((foo) this).bar(); }
-}

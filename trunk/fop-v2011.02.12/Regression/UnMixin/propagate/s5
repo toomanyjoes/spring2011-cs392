@@ -1,9 +1,0 @@
-layer one;
-
-SoUrCe RooT one "./Asm.jak";
-// implements
-abstract State_machine x$$one extends z { }
-
-SoUrCe  two "./Bsm.jak";
-// implemements
- State_machine x extends  x$$one  { }

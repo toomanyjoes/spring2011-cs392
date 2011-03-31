@@ -1,5 +1,0 @@
-layer three;
-
-refines class c {
-   int bottom;
-}

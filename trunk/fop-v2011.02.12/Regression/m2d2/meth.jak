@@ -1,9 +1,0 @@
-layer test;
-
-class meth {
-   void inc() { }
-
-   double twice( double x ) { } 
-
-   int[][] add( int[][] a, int b[][]) { }
-}

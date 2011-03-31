@@ -1,3 +1,0 @@
-layer one;
-
-State_machine x extends z implements q { }

@@ -1,7 +1,0 @@
-
-// tests if layer can be optional
-layer Foo.Bar.Cons2;
-class MyClass extends AstNode { 
-   int one; 
-   int foobar;
-}
