@@ -8,6 +8,8 @@
     Builds the GPL web interface.
  </description>
  
+    <property name="runtime.jars" value="jakarta.jar,gson-1.6.jar,sat4j.jar,guidsl.jar"/>
+ 
     <property name="dir.ahead"             location="${basedir}/fop-v2011.02.12/ahead"/>
     <property name="dir.ahead.build.lib"   location="${dir.ahead}/build/lib"/>
     
@@ -70,12 +72,7 @@
             </fileset>
         </copy>
         <copy todir="${dir.build.lib}">
-            <fileset dir="${dir.ahead.build.lib}">
-                <include name="jakarta.jar"/>
-                <include name="gson-1.6.jar"/>
-                <include name="sat4j.jar"/>
-                <include name="guidsl.jar"/>
-            </fileset>
+            <filelist dir="${dir.ahead.build.lib}" files="${runtime.jars}"/>
         </copy>
         <copy todir="${dir.build.js}">
             <fileset dir="${webdsl.src.js}">
