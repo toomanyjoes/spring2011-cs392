@@ -1,6 +1,0 @@
-layer simp2;
-
-extern inside Int a;
-extern inside Int b;
-
-requires inside a < 30 and b >=10;

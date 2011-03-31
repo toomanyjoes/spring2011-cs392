@@ -1,8 +1,0 @@
-// just adds a method
-
-layer uberalles;
-
-refines class g6 {
-
-   void bar() { }
-}

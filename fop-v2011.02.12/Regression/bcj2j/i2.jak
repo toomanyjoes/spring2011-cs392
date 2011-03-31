@@ -1,5 +1,0 @@
-layer i1;
-
-refines interface foo { 
-   void biff();
-}

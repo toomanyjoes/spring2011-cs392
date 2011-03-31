@@ -1,6 +1,0 @@
-layer one.right;
-
-public class B {
-    public void print() { System.out.println("right.B works" +
-        $pack.A.a); }
-}

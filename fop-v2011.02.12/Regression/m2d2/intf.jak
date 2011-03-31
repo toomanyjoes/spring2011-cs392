@@ -1,8 +1,0 @@
-layer test;
-
-public interface intf {
-
-   void foo();
-   int[] bar(int x);
-
-}

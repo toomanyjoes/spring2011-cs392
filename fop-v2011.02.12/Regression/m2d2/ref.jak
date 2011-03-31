@@ -1,6 +1,0 @@
-layer test;
-
-refines class cls {
-    int y;
-    void m(int x) { Super(int).m(x); /* do nothing */ }
-}

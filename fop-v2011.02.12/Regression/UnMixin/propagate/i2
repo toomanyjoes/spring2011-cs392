@@ -1,9 +1,0 @@
-layer one;
-
-SoUrCe RooT one "./Aint.jak";
-// extends
-abstract interface x$$one extends z,r,q { }
-
-SoUrCe  two "./Bint.jak";
-//extends 
- interface x extends y, r, a, x$$one { }

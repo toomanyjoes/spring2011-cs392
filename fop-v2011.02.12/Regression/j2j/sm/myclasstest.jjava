@@ -1,8 +1,0 @@
-class myclasstest {
-   public static void main( String[] args ) {
-      myclass m;
-		m = new myclass( 5 );  // test int constructor
-		m = new myclass( 5.0 ); // test double constructor
-		m = new myclass( );     // test empty constructor
-   }
-}

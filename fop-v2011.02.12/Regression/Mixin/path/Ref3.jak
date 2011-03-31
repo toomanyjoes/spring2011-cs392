@@ -1,8 +1,0 @@
-// tests if layer can be optional
-
-Local_Id foobar, one;
-
-refines class MyClass { 
-   int foobar;
-   int one;
-}

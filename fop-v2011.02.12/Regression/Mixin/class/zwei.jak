@@ -1,5 +1,0 @@
-layer baz.bar.two;
-
-refines class c {
-  int mid;
-}

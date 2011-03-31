@@ -1,3 +1,0 @@
-layer two;
-
-refines class x implements y { }

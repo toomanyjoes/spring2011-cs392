@@ -1,6 +1,0 @@
-import_ "hi there"
-
-class class_ {
-		  ...
-					 ...
-}

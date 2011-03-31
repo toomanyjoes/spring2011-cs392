@@ -22,34 +22,7 @@ import com.google.gson.*;
 * @author Samuel Palmer
 */
 public class WebTool {
-static guidsl.Tool tool = null;
-   static boolean makeCnfFile = true;
-   static boolean compatSelections = true;
-
     cnfModel model;
-	
-	public static void main(String args[]) {
-	  System.out.println("\n\n!!!!!!!\n\n");
-	  tool = new Tool( "gpl.m" );
-
-     // verifies that IPOW and BIGI are compatible
-      SATtest t = new SATtest( "test1", compatSelections, true );
-      t.add("MSTKruskal");
-      t.add("MSTPrim");
-      runTest( t, makeCnfFile );
-
-     // verifies that IPOW and -BIGI are incompatible
-      t = new SATtest( "test2", !compatSelections, true );
-      t.add("Directed");
-      t.add("-Directed");
-      runTest( t, !makeCnfFile );
-	}
-	static void runTest( SATtest t, boolean compat ) {
-      if (tool.modelDebug(t, makeCnfFile ))
-         System.out.println(t.getName() + " succeeded");
-      else
-         System.out.println(t.getName() + " failed");
-   }
 
     public WebTool ( String modelFileName ) {
 

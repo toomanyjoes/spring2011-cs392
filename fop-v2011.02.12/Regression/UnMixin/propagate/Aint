@@ -1,3 +1,0 @@
-layer one;
-
-interface x extends z { }

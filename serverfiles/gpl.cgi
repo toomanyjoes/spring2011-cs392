@@ -8,7 +8,7 @@ def main():
   print "Content-type: application/json\n"
   userSelections = cgi.FieldStorage().keys()
   userSelections.remove("_")   # remove empty items
-  javacmd = ["jdk1.7.0/bin/java", "-classpath", ".:guidsl.jar:sat4j.jar:jakarta.jar:gson-1.6.jar", "WebGuidsl", "-m", "gpl.m"]
+  javacmd = ["jdk1.7.0/bin/java", "-classpath", ".:lib/guidsl.jar:lib/sat4j.jar:lib/jakarta.jar:lib/gson-1.6.jar", "webGuiDsl.WebGuidsl", "-m", "gpl.m"]
   for feature in userSelections:
     javacmd.append(feature)
   proc = subprocess.Popen(javacmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

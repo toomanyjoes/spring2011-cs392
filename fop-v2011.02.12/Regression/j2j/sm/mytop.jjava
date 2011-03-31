@@ -1,5 +1,0 @@
-class mytop {
-	public mytop() { }
-	public mytop(int i) {}
-	public mytop(double i) {}
-}
