@@ -8,19 +8,21 @@
     Builds the GPL web interface.
  </description>
  
-    <property name="runtime.jars" value="jakarta.jar,gson-1.6.jar,sat4j.jar,guidsl.jar"/>
+    <property name="runtime.jars"        value="jakarta.jar,gson-1.6.jar,sat4j.jar,guidsl.jar"/>
  
-    <property name="dir.ahead"             location="${basedir}/fop-v2011.02.12/ahead"/>
-    <property name="dir.ahead.build.lib"   location="${dir.ahead}/build/lib"/>
+    <property name="dir.ahead"           location="${basedir}/fop-v2011.02.12/ahead"/>
+    <property name="dir.ahead.build.lib" location="${dir.ahead}/build/lib"/>
     
-    <property name="webdsl.src" location="${basedir}/serverfiles"/>
-    <property name="webdsl.src.js" location="${webdsl.src}/js"/>
+    <property name="webdsl.src"          location="${basedir}/serverfiles"/>
+    <property name="webdsl.src.js"       location="${webdsl.src}/js"/>
+    <property name="webdsl.src.css"       location="${webdsl.src}/css"/>
 
-    <property name="dir.build"       location="${basedir}/build"/>  <!-- drop the contents of this folder on your server -->
-    <property name="dir.build.lib"	 location="${dir.build}/lib"/>
+    <property name="dir.build"           location="${basedir}/build"/>  <!-- drop the contents of this folder on your server -->
+    <property name="dir.build.lib"	     location="${dir.build}/lib"/>
     <property name="dir.build.classes"	 location="${dir.build}"/>
-    <property name="dir.build.js"    location="${dir.build}/js"/>
-    <property name="dir.build.tmp"   location="${dir.build}/tmp"/>
+    <property name="dir.build.js"        location="${dir.build}/js"/>
+    <property name="dir.build.css"        location="${dir.build}/css"/>
+    <property name="dir.build.tmp"       location="${dir.build}/tmp"/>
     
     <path id="classpath">
         <fileset dir="${dir.ahead.build.lib}" includes="**/*.jar"/>
@@ -60,7 +62,7 @@
     <target name="copy.files">
         <mkdir dir="${dir.build.lib}"/>
         <mkdir dir="${dir.build.js}"/>
-        <mkdir dir="${dir.build.js}"/>
+        <mkdir dir="${dir.build.css}"/>
         <mkdir dir="${dir.build.tmp}"/>
         <copy todir="${dir.build}">
             <fileset dir="${webdsl.src}">
@@ -77,6 +79,11 @@
         <copy todir="${dir.build.js}">
             <fileset dir="${webdsl.src.js}">
                 <include name="**/*.js"/>
+            </fileset>
+        </copy>
+        <copy todir="${dir.build.css}">
+            <fileset dir="${webdsl.src.css}">
+                <include name="**/*.css"/>
             </fileset>
         </copy>
     </target>

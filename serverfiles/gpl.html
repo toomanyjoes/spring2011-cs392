@@ -12,97 +12,11 @@
   "graph product line, gpl, ahead, fop, feature oriented programming"
   name="keywords" />
   
-  <style type="text/css">
-    .featureDiv {
-        float: left;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="css/webguidsl.css" />
   
   <script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
   <script type="text/javascript" src="js/jquery.blockUI.js"></script>
-  <script type="text/javascript">
-    var userSelections = new Array();
-    var modelVariables;
-    
-    function updateUI() {
-        $('input').attr('disabled', false);  // enable all inputs
-        for(feature in modelVariables) {
-            if ( $('input[id='+feature+']').length ) {
-                $('input[id='+feature+']').attr('checked', modelVariables[feature]['set']);
-            
-                // check if the user can change the variable
-                $('input[id='+feature+']').attr('disabled', !modelVariables[feature]['chg']);
-            }
-        }
-    }
-    
-    function buildSelectedString() {
-        var str = '';
-        for(feature in userSelections) {
-            if(userSelections[feature])
-                str += $('#'+feature).attr('value') + '=1&'
-        }
-        return str;
-    }
-    
-    function sendSelections() {
-        var selectedString = buildSelectedString();
-        $.blockUI();
-        $.ajax({ 
-            type: 'GET',
-            url: 'gpl.cgi', 
-            cache: false,
-            dataType: 'json',
-            data: selectedString,
-            success: function(variableMap) {
-                modelVariables = variableMap;
-                updateUI();
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert("Error: " + textStatus);
-            },
-            complete: function() { 
-                $.unblockUI();   // unblock when remote call returns 
-            }
-        });
-    }
-    
-    $(document).ready(function() { 
-        
-        // init userSelections
-        $('input:radio').each(function() { 
-            userSelections[this.id] = false;
-        });
-        $('input:checkbox').each(function() {
-            userSelections[this.id] = false;
-        });
-        
-        // ask the server to re-calculate available features after selection
-        $('input:radio').click(function() {
-            //$(this).attr('checked', !$(this).attr('checked'));
-            userSelections[this.id] = !userSelections[this.id];
-            sendSelections();
-        });
-        $('input:checkbox').click(function() { 
-            userSelections[this.id] = !userSelections[this.id];
-            sendSelections();
-        });
-        
-        // put each input in a <div>. Needed to display hover reasons on disabled inputs
-        $('input').each(function() {
-            $(this).wrap('<div id="'+this.id+'div" name="'+this.id+'" class="featureDiv" />');
-        });
-        // setup explanation text when hover over the inputs
-        $('.featureDiv').hover(
-            function () {
-                $('#reason').html(modelVariables[$(this).attr('name')]['exp']);
-            }, 
-            function () {
-                $('#reason').text("");
-            }
-        );
-    });
-  </script>
+  <script type="text/javascript" src="js/webguidsl.js"></script>
 </head>
 
 <body>
