@@ -68,12 +68,7 @@ def main():
       stderr += stderr1
       writeLog(stdout,stderr)
       
-#      make_archive(tempdir+"/gpl", "zip", tempdir+"/gpl/gpl")
-
-      setPermissions(tempdir)
-      
-      
-      
+      make_archive(tempdir+"/gpl", "zip", tempdir+"/gpl/gpl")      
 
       HEADERS = '\r\n'.join(
         [
@@ -102,6 +97,12 @@ def main():
       sys.stdout.write(b.read())
       b.close()
 
+      # set permissions for debugging
+      setPermissions(tempdir)
+      
+      shutil.rmtree(tempdir, True)
+
+
 #      print "Content-Type:application/zip; name=\"gpl.zip\"\r\n"
       #print "Content-Disposition: attachment; filename=\"gpl.zip\"\r\n\n"
 #      zip = open(tempdir+"/gpl/gpl.zip", "rb")
@@ -113,7 +114,8 @@ def main():
      # writeLog(stdout,stderr)
 
 def setPermissions(dir):
-      permissions = S_IROTH|S_IWOTH|S_IXOTH|S_IRUSR|S_IWUSR|S_IXUSR
+      permissions = S_IROTH | S_IWOTH | S_IXOTH | S_IRUSR | S_IWUSR | S_IXUSR
+      os.chmod(dir, permissions)
       for root, dirs, files in os.walk(dir):
           for name in files:
               os.chmod(os.path.join(root,name), permissions)
