@@ -1,4 +1,5 @@
 var userSelections = new Array();
+var radioTracking = new Array();
 var modelVariables;
 
 function updateUI() {
@@ -164,6 +165,7 @@ $(document).ready(function() {
     // init userSelections
     $('input:radio').each(function() { 
         userSelections[this.id] = false;
+        radioTracking[this.name] = false;
     });
     $('input:checkbox').each(function() {
         userSelections[this.id] = false;
@@ -171,7 +173,8 @@ $(document).ready(function() {
 
     // ask the server to re-calculate available features after selection
     $('input:radio').click(function() {
-        //$(this).attr('checked', !$(this).attr('checked'));
+        radioTracking[this.name] = !radioTracking[this.name];
+        $(this).attr('checked', radioTracking[this.name]);
         userSelections[this.id] = !userSelections[this.id];
         sendSelections();
     });
