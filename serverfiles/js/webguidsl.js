@@ -138,6 +138,20 @@ function composeFeatures() {
         window.location.href = "compose.cgi?"+setString;
 }
 
+function clearSelections() {
+    modelVariables = null;
+    $('input').attr('disabled', false);  // enable all inputs
+    $('input:radio').each(function() { 
+        userSelections[this.id] = false;
+        radioTracking[this.name] = false;
+        $(this).attr('checked', false);
+    });
+    $('input:checkbox').each(function() {
+        userSelections[this.id] = false;
+        $(this).attr('checked', false);
+    });
+}
+
 function sendSelections() {
     var selectedString = buildSelectedString();
     $.blockUI();
@@ -184,6 +198,9 @@ $(document).ready(function() {
     });
     $('#submit').click(function() { 
         composeFeatures();
+    });
+    $('#reset').click(function() { 
+        clearSelections();
     });
 
     // put each input in a <div>. Needed to display hover reasons on disabled inputs
