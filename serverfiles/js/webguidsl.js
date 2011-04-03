@@ -85,8 +85,10 @@ function buildSetFeatureString() {
         str += 'Connected=' + featureCount + '&';
         featureCount++;
     }
-    if('StrongC' in modelVariables && modelVariables['StrongC']['set']) {
-        str += 'StrongC=' + featureCount + '&';
+    if('StronglyConnected' in modelVariables && modelVariables['StronglyConnected']['set']) {
+        str += 'StronglyConnected=' + featureCount + '&';
+        featureCount++;
+        str += 'Transpose=' + featureCount + '&';
         featureCount++;
     }
     if('Cycle' in modelVariables && modelVariables['Cycle']['set']) {
@@ -96,10 +98,18 @@ function buildSetFeatureString() {
     if('MSTPrim' in modelVariables && modelVariables['MSTPrim']['set']) {
         str += 'MSTPrim=' + featureCount + '&';
         featureCount++;
+        if(implementation == 'AL' || implementation == 'NL') {
+            str += 'MSTPrim' + implementation + '=' + featureCount + '&';
+            featureCount++;
+        }
     }
     if('MstKruskal' in modelVariables && modelVariables['MstKruskal']['set']) {
         str += 'MstKruskal=' + featureCount + '&';
         featureCount++;
+        if(implementation == 'AL' || implementation == 'NL') {
+            str += 'MSTKruskal' + implementation + '=' + featureCount + '&';
+            featureCount++;
+        }
     }
     
     /*
