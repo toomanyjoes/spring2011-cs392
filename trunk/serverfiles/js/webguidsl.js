@@ -103,8 +103,8 @@ function buildSetFeatureString() {
             featureCount++;
         }
     }
-    if('MstKruskal' in modelVariables && modelVariables['MstKruskal']['set']) {
-        str += 'MstKruskal=' + featureCount + '&';
+    if('MSTKruskal' in modelVariables && modelVariables['MSTKruskal']['set']) {
+        str += 'MSTKruskal=' + featureCount + '&';
         featureCount++;
         if(implementation == 'AL' || implementation == 'NL') {
             str += 'MSTKruskal' + implementation + '=' + featureCount + '&';
