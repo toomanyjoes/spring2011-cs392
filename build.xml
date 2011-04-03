@@ -18,6 +18,7 @@
     <property name="webdsl.src"          location="${basedir}/serverfiles"/>
     <property name="webdsl.src.js"       location="${webdsl.src}/js"/>
     <property name="webdsl.src.css"      location="${webdsl.src}/css"/>
+    <property name="webdsl.src.jak"      location="${webdsl.src}/jak"/>
 
     <property name="dir.build"           location="${basedir}/build"/>  <!-- drop the contents of this folder on your server -->
     <property name="dir.build.lib"	     location="${dir.build}/lib"/>
@@ -25,6 +26,7 @@
     <property name="dir.build.classes"	 location="${dir.build}"/>
     <property name="dir.build.js"        location="${dir.build}/js"/>
     <property name="dir.build.css"       location="${dir.build}/css"/>
+    <property name="dir.build.jak"       location="${dir.build}/jak"/>
     <property name="dir.build.tmp"       location="${dir.build}/tmp"/>
     
     <path id="classpath">
@@ -94,6 +96,9 @@
             <fileset dir="${webdsl.src.css}">
                 <include name="**/*.css"/>
             </fileset>
+        </copy>
+        <copy todir="${dir.build.jak}">
+            <fileset dir="${webdsl.src.jak}"/>
         </copy>
     </target>
     
