@@ -8,20 +8,23 @@
     Builds the GPL web interface.
  </description>
  
-    <property name="runtime.jars"        value="jakarta.jar,gson-1.6.jar,sat4j.jar,guidsl.jar"/>
+    <property name="runtime.jars"        value="jakarta.jar,gson-1.6.jar,sat4j.jar,guidsl.jar,composer.jar,jak2java.jar"/>
+    <property name="runtime.exes"        value="composer,jak2java"/>
  
     <property name="dir.ahead"           location="${basedir}/fop-v2011.02.12/ahead"/>
     <property name="dir.ahead.build.lib" location="${dir.ahead}/build/lib"/>
+    <property name="dir.ahead.build.bin" location="${dir.ahead}/build/bin"/>
     
     <property name="webdsl.src"          location="${basedir}/serverfiles"/>
     <property name="webdsl.src.js"       location="${webdsl.src}/js"/>
-    <property name="webdsl.src.css"       location="${webdsl.src}/css"/>
+    <property name="webdsl.src.css"      location="${webdsl.src}/css"/>
 
     <property name="dir.build"           location="${basedir}/build"/>  <!-- drop the contents of this folder on your server -->
     <property name="dir.build.lib"	     location="${dir.build}/lib"/>
+    <property name="dir.build.bin"	     location="${dir.build}/bin"/>
     <property name="dir.build.classes"	 location="${dir.build}"/>
     <property name="dir.build.js"        location="${dir.build}/js"/>
-    <property name="dir.build.css"        location="${dir.build}/css"/>
+    <property name="dir.build.css"       location="${dir.build}/css"/>
     <property name="dir.build.tmp"       location="${dir.build}/tmp"/>
     
     <path id="classpath">
@@ -60,6 +63,7 @@
     </target>
     
     <target name="copy.files">
+        <mkdir dir="${dir.build.bin}"/>
         <mkdir dir="${dir.build.lib}"/>
         <mkdir dir="${dir.build.js}"/>
         <mkdir dir="${dir.build.css}"/>
@@ -73,8 +77,13 @@
                 <include name="*.m"/>
             </fileset>
         </copy>
+        <copy todir="${dir.build.bin}">
+            <filelist dir="${dir.ahead.build.bin}" files="${runtime.exes}"/>
+        </copy>
         <copy todir="${dir.build.lib}">
-            <filelist dir="${dir.ahead.build.lib}" files="${runtime.jars}"/>
+            <fileset dir="${dir.ahead.build.lib}">
+                <include name="**/*.jar"/>
+            </fileset>
         </copy>
         <copy todir="${dir.build.js}">
             <fileset dir="${webdsl.src.js}">
