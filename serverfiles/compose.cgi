@@ -1,7 +1,5 @@
 #!/lusr/bin/python
-#stdout="test"
-#stderr="teststderr"
-#writeLog(stdout,stderr)
+
 import cgi
 import subprocess
 import sys
@@ -15,22 +13,16 @@ from StringIO import StringIO
 import zipfile
 
 def main():
-  stdout=""
-  stderr=""
-  rootPath = os.getcwd()
-  os.putenv("PATH", rootPath+"/jdk1.7.0/bin:"+rootPath+"/bin:.:"+os.getenv("PATH"))
-#  os.putenv("CLASSPATH", rootPath+"/lib/composer.jar:.")
-  try:
+      stdout=""
+      stderr=""
+      rootPath = os.getcwd()
+      os.putenv("PATH", rootPath+"/jdk1.7.0/bin:"+rootPath+"/bin:.:"+os.getenv("PATH"))
+
       cgitb.enable()
-      #features = cgi.FieldStorage().keys()
-#      stdout += cgi.FieldStorage()
       features = makeFeatureList(cgi.FieldStorage())
-#      features.remove("_")   # remove empty items
       tempdir = tempfile.mkdtemp("", "tmp", "tmp")
-      composecmd = ["../bin/composer", "--target=../"+tempdir+"/gpl"]
+      composecmd = ["../bin/composer", "--target=../"+tempdir]
       composecmd.extend(features)
-#      for feature in features:
-#        composecmd.append(feature)
       stdout += ' '.join(composecmd)
       writeLog(stdout,stderr)
 
@@ -42,24 +34,23 @@ def main():
       stderr += stderr1 + "\n\nend compose stderr\n\n"
       writeLog(stdout,stderr)
       
-      jak2javacmd = ["bin/jak2java"]#, tempdir+"/*.jak"]
-      for file in os.listdir(tempdir+"/gpl"):
+      jak2javacmd = ["bin/jak2java"]
+      for file in os.listdir(tempdir):
           if file[-4:] == ".jak":
-              jak2javacmd.append(tempdir + "/gpl/" + file)
+              jak2javacmd.append(tempdir + "/" + file)
       stdout += ' '.join(jak2javacmd)
       proc = subprocess.Popen(jak2javacmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       stdout1,stderr1 = proc.communicate()   # execute process and capture output
-      
-      stdout += stdout1 + "\n\nend jak2java stdout\n\n" 
-      stderr += stderr1 + "\n\nend jak2java stderr\n\n"
       writeLog(stdout,stderr)
       
-      shutil.copytree(tempdir+"/gpl", tempdir+"/gpl/gpl", ignore=shutil.ignore_patterns('*.jak'))
+      # uncomment if you don't want to zip the .jak files
+      #shutil.copytree(tempdir+"/gpl", tempdir+"/gpl/gpl", ignore=shutil.ignore_patterns('*.jak'))
+      shutil.copytree(tempdir, tempdir+"/gpl")
       
-      javaccmd = ["javac"]#, tempdir+"/gpl/*.java"]
-      for file in os.listdir(tempdir + "/gpl/gpl"):
+      javaccmd = ["jdk1.7.0/bin/javac"]
+      for file in os.listdir(tempdir + "/gpl"):
           if file[-5:] == ".java":
-              javaccmd.append(tempdir + "/gpl/gpl/" + file)
+              javaccmd.append(tempdir + "/gpl/" + file)
       stdout += ' '.join(javaccmd)
       proc = subprocess.Popen(javaccmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       stdout1,stderr1 = proc.communicate()   # execute process and capture output
@@ -68,7 +59,24 @@ def main():
       stderr += stderr1
       writeLog(stdout,stderr)
       
-      make_archive(tempdir+"/gpl", "zip", tempdir+"/gpl/gpl")      
+      xhtml2htmlcmd = ["jdk1.7.0/bin/java", "-classpath", "lib/OnekinUtils-Standard.jar:lib/xak.jar", "org.onekin.util.Xhtml2html", tempdir+"/gpl"]
+      proc = subprocess.Popen(xhtml2htmlcmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+      stdout1,stderr1 = proc.communicate()   # execute process and capture output
+      stdout += "\n\n" + ' '.join(xhtml2htmlcmd)
+      stdout += stdout1
+      stderr += stderr1
+      writeLog(stdout,stderr)
+      
+      makeZip(tempdir)
+
+      # set permissions for debugging
+      setPermissions(tempdir)
+      
+      shutil.rmtree(tempdir, True)
+
+     
+def makeZip(tempdir):
+      make_archive(tempdir+"/gpl", "zip", tempdir+"/gpl")
 
       HEADERS = '\r\n'.join(
         [
@@ -82,7 +90,7 @@ def main():
 
       b = StringIO()
       z = zipfile.ZipFile(b, 'w', zipfile.ZIP_DEFLATED)
-      for root, dirs, files in os.walk(tempdir+"/gpl/gpl"):
+      for root, dirs, files in os.walk(tempdir+"/gpl"):
           for file in dirs:
               name = os.path.join(root,file)
               z.write(name,name[name.rfind("gpl"):])
@@ -97,22 +105,6 @@ def main():
       sys.stdout.write(b.read())
       b.close()
 
-      # set permissions for debugging
-      setPermissions(tempdir)
-      
-      shutil.rmtree(tempdir, True)
-
-
-#      print "Content-Type:application/zip; name=\"gpl.zip\"\r\n"
-      #print "Content-Disposition: attachment; filename=\"gpl.zip\"\r\n\n"
-#      zip = open(tempdir+"/gpl/gpl.zip", "rb")
-#      str = zip.read();
-#      print str
-#      zip.close()
-  finally:
-     pass
-     # writeLog(stdout,stderr)
-
 def setPermissions(dir):
       permissions = S_IROTH | S_IWOTH | S_IXOTH | S_IRUSR | S_IWUSR | S_IXUSR
       os.chmod(dir, permissions)
@@ -125,8 +117,6 @@ def setPermissions(dir):
 def makeFeatureList(form):
     returnval = []
     features = form.keys()
-#    for feature in features:
-#        returnval.append(feature+" = " +form[feature].value)
     for i in range(len(features)):
         for feature in features:
             if int(form[feature].value) == i+1:
