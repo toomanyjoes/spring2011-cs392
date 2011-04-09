@@ -21,7 +21,7 @@ def main():
       cgitb.enable()
       features = makeFeatureList(cgi.FieldStorage())
       tempdir = tempfile.mkdtemp("", "tmp", "tmp")
-      composecmd = ["../bin/composer", "--target=../"+tempdir]
+      composecmd = ["../bin/composer", "--target=../"+tempdir+"/gpl"]
       composecmd.extend(features)
       stdout += ' '.join(composecmd)
       writeLog(stdout,stderr)
@@ -35,36 +35,38 @@ def main():
       writeLog(stdout,stderr)
       
       jak2javacmd = ["bin/jak2java"]
-      for file in os.listdir(tempdir):
+      for file in os.listdir(tempdir+"/gpl"):
           if file[-4:] == ".jak":
-              jak2javacmd.append(tempdir + "/" + file)
+              jak2javacmd.append(tempdir + "/gpl/" + file)
       stdout += ' '.join(jak2javacmd)
       proc = subprocess.Popen(jak2javacmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       stdout1,stderr1 = proc.communicate()   # execute process and capture output
+      stdout += stdout1 + "\n\nend jak2java stdout\n\ncurrent dir: " + os.getcwd() + "\n\n"
+      stderr += stderr1 + "\n\nend jak2java stderr\n\n"
       writeLog(stdout,stderr)
       
       # uncomment if you don't want to zip the .jak files
       #shutil.copytree(tempdir+"/gpl", tempdir+"/gpl/gpl", ignore=shutil.ignore_patterns('*.jak'))
-      shutil.copytree(tempdir, tempdir+"/gpl")
+      shutil.copytree(tempdir+"/gpl", tempdir+"/gpl/gpl")
       
       javaccmd = ["jdk1.7.0/bin/javac"]
-      for file in os.listdir(tempdir + "/gpl"):
+      for file in os.listdir(tempdir + "/gpl/gpl"):
           if file[-5:] == ".java":
-              javaccmd.append(tempdir + "/gpl/" + file)
+              javaccmd.append(tempdir + "/gpl/gpl/" + file)
       stdout += ' '.join(javaccmd)
       proc = subprocess.Popen(javaccmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       stdout1,stderr1 = proc.communicate()   # execute process and capture output
       
-      stdout += stdout1
-      stderr += stderr1
+      stdout += stdout1 + "\nend javaccmd stdout\n"
+      stderr += stderr1 + "\nend javaccmd stderr\n"
       writeLog(stdout,stderr)
       
       xhtml2htmlcmd = ["jdk1.7.0/bin/java", "-classpath", "lib/OnekinUtils-Standard.jar:lib/xak.jar", "org.onekin.util.Xhtml2html", tempdir+"/gpl"]
       proc = subprocess.Popen(xhtml2htmlcmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       stdout1,stderr1 = proc.communicate()   # execute process and capture output
       stdout += "\n\n" + ' '.join(xhtml2htmlcmd)
-      stdout += stdout1
-      stderr += stderr1
+      stdout += stdout1 + "\nend xhtml2htmlcmd stdout\n"
+      stderr += stderr1 + "\nend xhtml2htmlcmd stderr\n"
       writeLog(stdout,stderr)
       
       makeZip(tempdir)
@@ -76,7 +78,7 @@ def main():
 
      
 def makeZip(tempdir):
-      make_archive(tempdir+"/gpl", "zip", tempdir+"/gpl")
+      make_archive(tempdir+"/gpl", "zip", tempdir+"/gpl/gpl")
 
       HEADERS = '\r\n'.join(
         [
@@ -90,7 +92,7 @@ def makeZip(tempdir):
 
       b = StringIO()
       z = zipfile.ZipFile(b, 'w', zipfile.ZIP_DEFLATED)
-      for root, dirs, files in os.walk(tempdir+"/gpl"):
+      for root, dirs, files in os.walk(tempdir+"/gpl/gpl"):
           for file in dirs:
               name = os.path.join(root,file)
               z.write(name,name[name.rfind("gpl"):])
