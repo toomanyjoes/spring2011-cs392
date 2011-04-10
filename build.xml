@@ -15,6 +15,8 @@
     <property name="dir.ahead.build.lib" location="${dir.ahead}/build/lib"/>
     <property name="dir.ahead.build.bin" location="${dir.ahead}/build/bin"/>
     
+    <property name="dir.gpl.src"         location="${basedir}/fop-v2011.02.12/Tut-Demos/8GG"/>
+    
     <property name="webdsl.src"          location="${basedir}/serverfiles"/>
     <property name="webdsl.src.js"       location="${webdsl.src}/js"/>
     <property name="webdsl.src.css"      location="${webdsl.src}/css"/>
@@ -98,7 +100,9 @@
             </fileset>
         </copy>
         <copy todir="${dir.build.jak}">
-            <fileset dir="${webdsl.src.jak}"/>
+            <fileset dir="${dir.gpl.src}">
+                <include name="**/*.jak"/>
+            </fileset>
         </copy>
     </target>
     
