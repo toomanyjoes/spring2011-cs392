@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<project name="Graph Performance Tests" default="all">
+
+ <description>
+    Builds the graph performance tests. 
+ </description>
+ 
+    <property name="dir.jgrapht"           location="${basedir}/jgrapht-0.8.2"/>
+    <property name="dir.jgrapht.build"     location="${dir.jgrapht}/build"/>
+    <property name="dir.jgraphtTests"      location="${basedir}/jgraphtTests"/>
+    
+    <path id="jgrapht.classpath">
+        <pathelement path="${dir.jgrapht.build}"/>
+    </path>
+
+    <!-- - - - - - - - - - - - - - - -->
+    <!-- External Libraries & Tools: -->
+    <!-- - - - - - - - - - - - - - - -->
+
+    <property name="dir.ant"		location="${ant.home}"/>
+    <property name="dir.ant.lib"	location="${dir.ant}/lib"/>
+
+    <target name="all"
+        depends="jgrapht,jgraphtTests"
+	description=""/>
+
+    <target
+            name="jgrapht"
+            description="">
+        <ant dir="${dir.jgrapht}" inheritall="false"/>
+    </target>
+    
+    <target
+        name="jgraphtTests"
+        description="">
+        <javac srcdir="${dir.jgraphtTests}" includeantruntime="false">
+            <classpath refid="jgrapht.classpath"/>
+        </javac>
+    </target>
+        
+    <target name="clean"
+        description="">
+        <delete includeEmptyDirs="true" quiet="true">
+            <fileset dir="${dir.jgraphTests}">
+                <include name="**/*.class"/>
+            </fileset>
+        </delete>
+    </target>
+</project>
