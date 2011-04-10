@@ -102,6 +102,8 @@
         <copy todir="${dir.build.jak}">
             <fileset dir="${dir.gpl.src}">
                 <include name="**/*.jak"/>
+                <include name="**/*.xhtml"/>
+                <include name="**/*.jpg"/>
             </fileset>
         </copy>
     </target>
