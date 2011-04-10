@@ -1,0 +1,7 @@
+layer Cycle;
+
+// *************************************************************************
+   
+public class CycleDetectedException extends RuntimeException {
+
+}
