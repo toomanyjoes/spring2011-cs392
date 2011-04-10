@@ -55,7 +55,9 @@ public class CycleWorkSpace extends  WorkSpace {
         {
             if ( ( vsource.VertexColor == GRAY ) && ( vtarget.VertexColor == GRAY ) ) 
               {
-                AnyCycles = true;
+                // throw exception to short-circuit the search
+                throw new CycleDetectedException();
+                //AnyCycles = true;
             }
         }
         else
@@ -63,7 +65,9 @@ public class CycleWorkSpace extends  WorkSpace {
             if ( ( vsource.VertexColor == GRAY ) && ( vtarget.VertexColor == GRAY ) 
                  && vsource.VertexCycle != vtarget.VertexCycle+1 ) 
               {
-                AnyCycles = true;
+                // throw exception to short-circuit the search
+                throw new CycleDetectedException();
+                //AnyCycles = true;
             }
         }
         
