@@ -80,10 +80,18 @@ function buildSetFeatureString() {
     if('Number' in modelVariables && modelVariables['Number']['set']) {
         str += 'Number=' + featureCount + '&';
         featureCount++;
+        if( !('DFS' in modelVariables && modelVariables['DFS']['set']) && !('BFS' in modelVariables && modelVariables['BFS']['set']) ) {
+            alert('Select a value in Src');
+            return 'error';
+        }
     }
     if('Connected' in modelVariables && modelVariables['Connected']['set']) {
         str += 'Connected=' + featureCount + '&';
         featureCount++;
+        if( !('DFS' in modelVariables && modelVariables['DFS']['set']) && !('BFS' in modelVariables && modelVariables['BFS']['set']) ) {
+            alert('Select a value in Src');
+            return 'error';
+        }
     }
     if('StronglyConnected' in modelVariables && modelVariables['StronglyConnected']['set']) {
         str += 'StronglyConnected=' + featureCount + '&';
@@ -112,30 +120,6 @@ function buildSetFeatureString() {
         }
     }
     
-    /*
-    for(feature in modelVariables) {
-        if($('#'+feature).length > 0 && modelVariables[feature]['set'] && feature != 'Directed' && feature != 'Undirected' && feature != 'Weighted' && feature != 'Unweighted') {
-            str += $('#'+feature).attr('value') + '='+featureCount+'&';
-            featureCount++;
-            
-            // specific to GPL !!!
-            if(feature == "AL" || feature == "NL" || feature == "EL") {
-                if(modelVariables['Directed']['set']) {
-                    str += 'Directed'+feature+'='+featureCount+'&';
-                    featureCount++;
-                }
-                else {
-                    str += 'Undirected'+feature+'='+featureCount+'&';
-                    featureCount++;
-                }
-                if(modelVariables['Weighted']['set']) {
-                    str += 'Weighted'+feature+'='+featureCount+'&';
-                    featureCount++;
-                }
-            }
-        }
-    }
-    str = str.replace('Directed=1&','').replace('Undirected=1&','').replace('Weighted=1&','').replace('Unweighted=1&','');*/
     str += 'Benchmark=' + featureCount + '&';
     featureCount++;
     str += 'Prog='+featureCount
