@@ -61,7 +61,7 @@ def main():
       stderr += stderr1 + "\nend javaccmd stderr\n"
       writeLog(stdout,stderr)
       
-      xhtml2htmlcmd = ["jdk1.7.0/bin/java", "-classpath", "lib/OnekinUtils-Standard.jar:lib/xak.jar", "org.onekin.util.Xhtml2html", tempdir+"/gpl"]
+      xhtml2htmlcmd = ["jdk1.7.0/bin/java", "-classpath", "lib/OnekinUtils-Standard.jar:lib/xak.jar", "org.onekin.util.Xhtml2html", tempdir+"/gpl/gpl"]
       proc = subprocess.Popen(xhtml2htmlcmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       stdout1,stderr1 = proc.communicate()   # execute process and capture output
       stdout += "\n\n" + ' '.join(xhtml2htmlcmd)
