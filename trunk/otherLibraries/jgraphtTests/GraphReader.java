@@ -1,25 +1,64 @@
 package jgraphtTests;
 
 import java.io.*;
+import java.util.*;
+import org.jgrapht.*;
 
 public class GraphReader {
     private Reader inFile;
+    private boolean directed;
+    private boolean weighted;
+    private String filename;
+    
+    public GraphReader(boolean weighted, String filename) {
+        this.weighted = weighted;
+        this.filename = filename;
+    }
+    
+    public void readGraph(Graph g) {
+        openFile();
+        
+        int numVertices = readNumber();
+        int numEdges = readNumber();
+        readNumber(); 
+        readNumber();
+        readNumber();
 
-    public boolean openFile(String FileName)
+        List<Object> vList = new ArrayList<Object>();
+        for (int i = 0; i < numVertices; i++)
+        {
+            Object curr = new Object();
+            vList.add(curr);
+            g.addVertex(curr);
+        }
+
+        for(int i=0; i < numEdges; i++)
+        {
+            int start_idx = readNumber();
+            int end_idx = readNumber();
+            Object start = vList.get(start_idx);
+            Object end = vList.get(end_idx);
+            g.addEdge(start, end);
+        }
+        
+        closeFile();
+    }
+
+    private boolean openFile()
     {
         try 
         {
-            inFile = new FileReader( FileName );
+            inFile = new FileReader( filename );
         }
         catch ( IOException e )
         {
-            System.out.println( "Your file " + FileName + " cannot be read" );
+            System.out.println( "Your file " + filename + " cannot be read" );
             return false;
         }
         return true;
     }
     
-    public void closeFile() {
+    private void closeFile() {
         try
         {
             inFile.close();
@@ -28,7 +67,7 @@ public class GraphReader {
         { }
     }
     
-    public int readNumber()
+    private int readNumber()
     {
         String theString = null;
         try {

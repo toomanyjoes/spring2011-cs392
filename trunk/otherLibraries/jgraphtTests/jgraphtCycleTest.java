@@ -13,34 +13,16 @@ public class jgraphtCycleTest {
     private static GraphReader reader;
     
     public static void main(String[] args) {
-        reader = new GraphReader();
-        if(!reader.openFile(args[0]))
+        if(args.length == 0) {
+            System.err.println("must provide file name");
             System.exit(1);
-        DirectedPseudograph<Object, DefaultEdge> graph = new DirectedPseudograph<Object, DefaultEdge>(DefaultEdge.class);
+        }
         
-        int numVertices = reader.readNumber();
-        int numEdges = reader.readNumber();
-        reader.readNumber(); reader.readNumber(); reader.readNumber();
-
-        List<Object> vList = new ArrayList<Object>();
-        for (int i = 0; i < numVertices; i++)
-        {
-            Object curr = new Object();
-            vList.add(curr);
-            graph.addVertex(curr);
-        }
-
-        for(int i=0; i < numEdges; i++)
-        {
-            int start_idx = reader.readNumber();
-            int end_idx = reader.readNumber();
-            Object start = vList.get(start_idx);
-            Object end = vList.get(end_idx);
-            graph.addEdge(start, end);
-        }
+        DirectedPseudograph<Object, DefaultEdge> graph = new DirectedPseudograph<Object, DefaultEdge>(DefaultEdge.class);
+        GraphReader reader = new GraphReader(false, args[0]);
+        reader.readGraph(graph);
         
         CycleDetector<Object, DefaultEdge> cycleDetector = new CycleDetector<Object, DefaultEdge>(graph);
-        Object v1 = vList.get(0);
         long beginTime = System.currentTimeMillis();
         boolean cycle = cycleDetector.detectCycles();
         long endTime = System.currentTimeMillis();
