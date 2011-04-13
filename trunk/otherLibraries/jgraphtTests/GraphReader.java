@@ -32,13 +32,27 @@ public class GraphReader {
             g.addVertex(curr);
         }
 
+        List<Object[]> eList = new ArrayList<Object[]>();
         for(int i=0; i < numEdges; i++)
         {
             int start_idx = readNumber();
             int end_idx = readNumber();
             Object start = vList.get(start_idx);
             Object end = vList.get(end_idx);
+            Object[] edge = {start, end};
+            eList.add(edge);
             g.addEdge(start, end);
+        }
+        
+        if(weighted)
+        {
+            WeightedGraph wg = (WeightedGraph) g;   // trust that this is indeed a weighted graph
+            for(int i=0; i < numEdges; i++)
+            {
+                double weight = (double)readNumber();
+                Object[] edge = eList.get(i);
+                wg.setEdgeWeight(wg.getEdge(edge[0], edge[1]), weight);
+            }
         }
         
         closeFile();
