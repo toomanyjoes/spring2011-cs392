@@ -94,9 +94,9 @@ function buildSetFeatureString() {
         }
     }
     if('StronglyConnected' in modelVariables && modelVariables['StronglyConnected']['set']) {
-        str += 'StronglyConnected=' + featureCount + '&';
-        featureCount++;
         str += 'Transpose=' + featureCount + '&';
+        featureCount++;
+        str += 'StronglyConnected=' + featureCount + '&';
         featureCount++;
     }
     if('Cycle' in modelVariables && modelVariables['Cycle']['set']) {
