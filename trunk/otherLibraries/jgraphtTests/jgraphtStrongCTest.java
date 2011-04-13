@@ -24,9 +24,9 @@ public class jgraphtStrongCTest {
         
         StrongConnectivityInspector<Object, DefaultEdge> inspector = new StrongConnectivityInspector<Object, DefaultEdge>(graph);
         long beginTime = System.currentTimeMillis();
-        boolean connected = inspector.isStronglyConnected();
+        inspector.stronglyConnectedSubgraphs();
         long endTime = System.currentTimeMillis();
-        System.out.println(" StronglyConnected? " + connected);
+        //System.out.println(" StronglyConnected? " + connected);
         System.out.println("Total time: " + (endTime-beginTime));
     }
 }
