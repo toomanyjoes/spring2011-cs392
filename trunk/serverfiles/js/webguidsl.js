@@ -104,20 +104,20 @@ function buildSetFeatureString() {
         featureCount++;
     }
     if('MSTPrim' in modelVariables && modelVariables['MSTPrim']['set']) {
-        str += 'MSTPrim=' + featureCount + '&';
-        featureCount++;
         if(implementation == 'AL' || implementation == 'NL') {
             str += 'MSTPrim' + implementation + '=' + featureCount + '&';
             featureCount++;
         }
+        str += 'MSTPrim=' + featureCount + '&';
+        featureCount++;
     }
     if('MSTKruskal' in modelVariables && modelVariables['MSTKruskal']['set']) {
-        str += 'MSTKruskal=' + featureCount + '&';
-        featureCount++;
         if(implementation == 'AL' || implementation == 'NL') {
             str += 'MSTKruskal' + implementation + '=' + featureCount + '&';
             featureCount++;
         }
+        str += 'MSTKruskal=' + featureCount + '&';
+        featureCount++;
     }
     
     str += 'Benchmark=' + featureCount + '&';
