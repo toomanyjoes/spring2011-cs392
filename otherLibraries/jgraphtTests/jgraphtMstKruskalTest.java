@@ -28,7 +28,7 @@ public class jgraphtMstKruskalTest {
         //double cost = mstAlgo.getSpanningTreeCost();
         long endTime = System.currentTimeMillis();
         //System.out.println("cost " + cost);
-        System.out.println("Total time: " + (endTime-beginTime));
+        System.out.println("Time elapsed: " + (endTime-beginTime));
     }
 }
 

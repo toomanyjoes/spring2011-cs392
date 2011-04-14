@@ -27,7 +27,7 @@ public class jgraphtConnectedTest {
         inspector.connectedSets();
         long endTime = System.currentTimeMillis();
         //System.out.println(" StronglyConnected? " + connected);
-        System.out.println("Total time: " + (endTime-beginTime));
+        System.out.println("Time elapsed: " + (endTime-beginTime));
     }
 }
 

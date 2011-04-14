@@ -1,0 +1,12 @@
+layer gpl;
+
+import java.util.LinkedList;
+
+SoUrCe RooT base "../../../jak/Base/NeighborIfc.jak";
+
+// Vertex class
+
+ // *************************************************************************
+
+public interface NeighborIfc
+{}

@@ -1,0 +1,291 @@
+package gpl;
+
+import java.util.LinkedList;
+import java.util.Iterator;
+import java.util.Collections;
+import java.util.Comparator;
+
+//dja: add for performance reasons
+import java.util.HashMap;
+import java.util.Map;
+
+import java.io.*;
+
+
+
+// Edge-Neighbor implementation
+
+// *************************************************************************
+
+abstract class Graph$$Undirected {
+    private LinkedList vertices;
+    private LinkedList edges;
+    public static final boolean isDirected = false;
+
+    //dja: add for performance reasons
+    private Map verticesMap;
+
+    public Graph$$Undirected() {
+        vertices = new LinkedList();
+        edges = new LinkedList();
+
+        //dja: add for performance reasons
+        verticesMap = new HashMap();
+
+    }
+
+    // Fall back method that stops the execution of programs
+    public void run( Vertex s ) {}
+
+    public void sortEdges( Comparator c ) {
+        Collections.sort( edges, c );
+    }
+
+    public void sortVertices( Comparator c ) {
+        Collections.sort( vertices, c );
+    }
+
+    // Adds an edge without weights if Weighted layer is not present
+    public EdgeIfc addEdge( Vertex start,  Vertex end ) {
+        Edge theEdge = new  Edge();
+        theEdge.EdgeConstructor( start, end );
+        edges.add( theEdge );
+        start.addNeighbor( new  Neighbor( end, theEdge ) );
+        end.addNeighbor( new  Neighbor( start, theEdge ) );
+
+        return theEdge;
+    }
+
+    protected void addVertex( Vertex v ) {
+        vertices.add( v );
+
+        //dja: add for performance reasons
+        verticesMap.put( v.name, v );
+
+    }
+
+    // Finds a vertex given its name in the vertices list
+    public  Vertex findsVertex( String theName ) {
+        Vertex theVertex;
+
+        // if we are dealing with the root
+        if ( theName==null )
+            return null;
+
+                  //dja: removed for performance reasons
+        //        for( VertexIter vxiter = getVertices(); vxiter.hasNext(); )
+        //        {
+        //            theVertex = vxiter.next();
+        //            if ( theName.equals( theVertex.getName() ) )
+        //                return theVertex;
+        //        }
+        //        return null;
+
+                  //dja: add for performance reasons
+        return ( Vertex ) verticesMap.get( theName );
+
+    }
+
+    public VertexIter getVertices() {
+        return new VertexIter() {
+            private Iterator iter = vertices.iterator();
+            public Vertex next() {
+                return ( Vertex )iter.next();
+            }
+            public boolean hasNext() {
+                return iter.hasNext();
+            }
+        };
+    }
+
+    public EdgeIter getEdges() {
+        return new EdgeIter() {
+            private Iterator iter = edges.iterator();
+            public EdgeIfc next() {
+                return ( EdgeIfc )iter.next();
+            }
+            public boolean hasNext() {
+                return iter.hasNext();
+            }
+        };
+    }
+
+    // Finds an Edge given both of its vertices
+    public  EdgeIfc findsEdge( Vertex theSource,
+                    Vertex theTarget )
+       {
+        EdgeIfc theEdge;
+
+            // dja: performance improvement
+        //  for( EdgeIter edgeiter = getEdges(); edgeiter.hasNext(); )
+        for( EdgeIter edgeiter = theSource.getEdges(); edgeiter.hasNext(); )
+         {
+            theEdge = edgeiter.next();
+            if ( ( theEdge.getStart().getName().equals( theSource.getName() ) &&
+                  theEdge.getEnd().getName().equals( theTarget.getName() ) ) ||
+                 ( theEdge.getStart().getName().equals( theTarget.getName() ) &&
+                  theEdge.getEnd().getName().equals( theSource.getName() ) ) )
+                return theEdge;
+        }
+        return null;
+    }
+
+    public void display() {
+        System.out.println( "******************************************" );
+        System.out.println( "Vertices " );
+        for ( VertexIter vxiter = getVertices(); vxiter.hasNext() ; )
+            vxiter.next().display();
+
+        System.out.println( "******************************************" );
+        System.out.println( "Edges " );
+        for ( EdgeIter edgeiter = getEdges(); edgeiter.hasNext(); )
+            edgeiter.next().display();
+
+        System.out.println( "******************************************" );
+    }
+}
+
+
+
+// **********************************************************************
+
+abstract class Graph$$DFS extends  Graph$$Undirected  {
+    public void GraphSearch( WorkSpace w ) 
+    {
+        // Step 1: initialize visited member of all nodes
+        VertexIter vxiter = getVertices();
+        if ( vxiter.hasNext() == false )
+        {
+            return; // if there are no vertices return
+        }
+
+        // Initializing the vertices
+        while( vxiter.hasNext() ) 
+        {
+            Vertex v = vxiter.next();
+            v.init_vertex( w );
+        }
+
+        // Step 2: traverse neighbors of each node
+        for( vxiter = getVertices(); vxiter.hasNext(); ) 
+        {
+            Vertex v = vxiter.next();
+            if ( !v.visited ) 
+            {
+                w.nextRegionAction( v );
+                v.nodeSearch( w );
+            }
+        }
+    }
+      // inherited constructors
+
+
+
+    public Graph$$DFS (  ) { super(); }
+}
+
+
+
+// *****************************************************************
+   
+abstract class Graph$$Connected extends  Graph$$DFS  {
+    // Executes Connected Components
+    public void run( Vertex s )
+    {
+        ConnectedComponents();
+        super.run( s );
+    }
+
+    public void ConnectedComponents() 
+    {
+        GraphSearch( new RegionWorkSpace() );
+    }
+      // inherited constructors
+
+
+
+    public Graph$$Connected (  ) { super(); }
+}
+
+
+
+public class Graph extends  Graph$$Connected  {
+    public Reader inFile; // File handler for reading
+    public static int ch; // Character to read/write
+
+    // timmings
+    static long last = 0, current = 0, accum = 0;
+
+    public void runBenchmark( String FileName ) throws IOException
+    {
+        try 
+        {
+            inFile = new FileReader( FileName );
+        }
+        catch ( IOException e )
+        {
+            System.out.println( "Your file " + FileName + " cannot be read" );
+        }
+    }
+
+    public void stopBenchmark() throws IOException
+    {
+        inFile.close();
+    }
+
+    public int readNumber() throws IOException
+    {
+        int index = 0;
+        char[ ] word = new char[ 80 ];
+        int ch = 0;
+
+        ch = inFile.read();
+        while( ch==32 )
+        {
+            ch = inFile.read(); // skips extra whitespaces
+        }
+
+        while( ch != -1 && ch != 32 && ch != 10 ) // while it is not EOF, WS, NL
+        {
+            word[ index++ ] = ( char )ch;
+            ch = inFile.read();
+        }
+        word[ index ] = 0;
+
+        String theString = new String( word );
+
+        theString = new String( theString.substring( 0,index ) ).trim();
+        return Integer.parseInt( theString,10 );
+    }
+
+    public static void startProfile()
+    {
+        accum = 0;
+        current = System.currentTimeMillis();
+        last = current;
+    }
+
+    public static void stopProfile()
+    {
+        current = System.currentTimeMillis();
+        accum = accum + ( current - last );
+    }
+
+    public static void resumeProfile()
+    {
+        current = System.currentTimeMillis();
+        last = current;
+    }
+
+    public static void endProfile()
+     {
+        current = System.currentTimeMillis();
+        accum = accum + ( current-last );
+        System.out.println( "Time elapsed: " + accum + " milliseconds" );
+    }
+      // inherited constructors
+
+
+
+    public Graph (  ) { super(); }
+}

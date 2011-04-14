@@ -1,0 +1,9 @@
+layer gpl;
+
+SoUrCe RooT Cycle "../../../jak/Cycle/CycleDetectedException.jak";
+
+// *************************************************************************
+   
+public class CycleDetectedException extends RuntimeException {
+
+}

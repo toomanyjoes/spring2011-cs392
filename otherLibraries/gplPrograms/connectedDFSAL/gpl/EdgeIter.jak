@@ -1,0 +1,12 @@
+layer gpl;
+
+SoUrCe RooT base "../../../jak/Base/EdgeIter.jak";
+
+public class EdgeIter {
+    public boolean hasNext() {
+        return false;
+    }
+    public EdgeIfc next() {
+        return null;
+    }
+}

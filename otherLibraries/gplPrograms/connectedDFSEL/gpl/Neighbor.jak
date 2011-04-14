@@ -1,0 +1,25 @@
+layer gpl;
+
+import java.util.LinkedList;
+
+SoUrCe RooT Undirected "../../../jak/UndirectedEL/Neighbor.jak";
+
+// *************************************************************************
+  
+public class Neighbor implements NeighborIfc {
+    public  Vertex end;
+    public  Edge   edge;
+        
+    public Neighbor()
+    {
+        end = null;
+        edge = null;
+    }
+        
+    public Neighbor( Vertex v,  Edge e )
+    {
+        end = v;
+        edge = e;
+    }
+
+}
