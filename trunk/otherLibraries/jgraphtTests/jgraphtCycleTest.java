@@ -27,7 +27,7 @@ public class jgraphtCycleTest {
         boolean cycle = cycleDetector.detectCycles();
         long endTime = System.currentTimeMillis();
         System.out.println(" Cycle? " + cycle);
-        System.out.println("Total time: " + (endTime-beginTime));
+        System.out.println("Time elapsed: " + (endTime-beginTime));
     }
 }
 
