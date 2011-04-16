@@ -12,9 +12,20 @@
     <property name="dir.jgrapht.build"     location="${dir.jgrapht}/build"/>
     <property name="dir.jgraphtTests"      location="${basedir}/jgraphtTests"/>
     
+    <property name="dir.jung"           location="${basedir}/jung2-2_0_1"/>
+    <property name="dir.jungTests"      location="${basedir}/jungTests"/>
+    
     <path id="jgrapht.classpath">
         <pathelement path="${dir.jgrapht.build}"/>
         <pathelement path="${basedir}"/>
+    </path>
+    
+    <path id="jung.classpath">
+        <pathelement path="${dir.jung}"/>
+        <pathelement path="${basedir}"/>
+        <fileset dir="${dir.jung}">
+            <include name="**/*.jar"/>
+        </fileset>
     </path>
 
     <!-- - - - - - - - - - - - - - - -->
@@ -25,7 +36,7 @@
     <property name="dir.ant.lib"	location="${dir.ant}/lib"/>
 
     <target name="all"
-        depends="jgrapht,jgraphtTests"
+        depends="jgrapht,jgraphtTests,jungTests"
 	description=""/>
 
     <target
@@ -39,6 +50,14 @@
         description="">
         <javac srcdir="${dir.jgraphtTests}" includeantruntime="false">
             <classpath refid="jgrapht.classpath"/>
+        </javac>
+    </target>
+
+    <target
+        name="jungTests"
+        description="">
+        <javac srcdir="${dir.jungTests}" includeantruntime="false">
+            <classpath refid="jung.classpath"/>
         </javac>
     </target>
         
