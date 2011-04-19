@@ -2,21 +2,24 @@
 
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-<project name="Graph Performance Tests" default="all">
+<project name="Graph Performance Tests" default="all-tests">
 
  <description>
     Builds the graph performance tests. 
  </description>
  
-    <property name="dir.jgrapht"           location="${basedir}/jgrapht-0.8.2"/>
-    <property name="dir.jgrapht.build"     location="${dir.jgrapht}/build"/>
-    <property name="dir.jgraphtTests"      location="${basedir}/jgraphtTests"/>
+    <property name="dir.jgrapht"          location="${basedir}/jgrapht-0.8.2"/>
+    <property name="dir.jgrapht.build"    location="${dir.jgrapht}/build"/>
+    <property name="dir.jgraphtTests"     location="${basedir}/jgraphtTests"/>
     
-    <property name="dir.jung"           location="${basedir}/jung2-2_0_1"/>
-    <property name="dir.jungTests"      location="${basedir}/jungTests"/>
+    <property name="dir.jung"             location="${basedir}/jung2-2_0_1"/>
+    <property name="dir.jungTests"        location="${basedir}/jungTests"/>
     
-    <property name="dir.jdsl"           location="${basedir}/jdsl-2.1.1"/>
-    <property name="dir.jdslTests"      location="${basedir}/jdslTests"/>
+    <property name="dir.jdsl"             location="${basedir}/jdsl-2.1.1"/>
+    <property name="dir.jdslTests"        location="${basedir}/jdslTests"/>
+    
+    <property name="dir.yfiles"           location="${basedir}/yfiles-2.8.0.1-complete-eval"/>
+    <property name="dir.yfilesTests"      location="${basedir}/yfilesTests"/>
     
     <path id="jgrapht.classpath">
         <pathelement path="${dir.jgrapht.build}"/>
@@ -38,6 +41,14 @@
             <include name="**/*.jar"/>
         </fileset>
     </path>
+    
+    <path id="yfiles.classpath">
+        <pathelement path="${dir.yfiles}"/>
+        <pathelement path="${basedir}"/>
+        <fileset dir="${dir.yfiles}/lib">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
 
     <!-- - - - - - - - - - - - - - - -->
     <!-- External Libraries & Tools: -->
@@ -47,8 +58,11 @@
     <property name="dir.ant.lib"	location="${dir.ant}/lib"/>
 
     <target name="all"
-        depends="jgrapht,jgraphtTests,jungTests,jdslTests"
+        depends="jgrapht,all-tests"
 	description=""/>
+    
+    <target name="all-tests"
+         depends="jgraphtTests,jungTests,jdslTests,yfilesTests"/>
 
     <target
             name="jgrapht"
@@ -79,11 +93,49 @@
             <classpath refid="jdsl.classpath"/>
         </javac>
     </target>
+    
+    <target
+        name="yfilesTests"
+        description="">
+        <javac srcdir="${dir.yfilesTests}" includeantruntime="false">
+            <classpath refid="yfiles.classpath"/>
+        </javac>
+    </target>
         
     <target name="clean"
+        depends="clean-jgraphtTests,clean-jungTests,clean-jdslTests,clean-yfilesTests"/>
+        
+    <target name="clean-jgraphtTests"
         description="">
         <delete includeEmptyDirs="true" quiet="true">
-            <fileset dir="${dir.jgraphTests}">
+            <fileset dir="${dir.jgraphtTests}">
+                <include name="**/*.class"/>
+            </fileset>
+        </delete>
+    </target>
+    
+    <target name="clean-jungTests"
+        description="">
+        <delete includeEmptyDirs="true" quiet="true">
+            <fileset dir="${dir.jungTests}">
+                <include name="**/*.class"/>
+            </fileset>
+        </delete>
+    </target>
+    
+    <target name="clean-jdslTests"
+        description="">
+        <delete includeEmptyDirs="true" quiet="true">
+            <fileset dir="${dir.jdslTests}">
+                <include name="**/*.class"/>
+            </fileset>
+        </delete>
+    </target>
+    
+    <target name="clean-yfilesTests"
+        description="">
+        <delete includeEmptyDirs="true" quiet="true">
+            <fileset dir="${dir.yfilesTests}">
                 <include name="**/*.class"/>
             </fileset>
         </delete>
