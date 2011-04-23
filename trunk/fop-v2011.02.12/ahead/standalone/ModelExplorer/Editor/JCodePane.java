@@ -527,12 +527,9 @@ public class JCodePane extends JEditorPane
    */
   /*private final static boolean isAltGrKey(char c) {
     switch (c) {
-      case '²': case '³':
-	  case '{': case '}':
-	  case '[': case ']':
-	  case '@': case '€':
-	  case '~': case '|':
-      case 'µ': case '\\':
+
+// stuff deleted here for UTF8 encoding
+
         return true;
       default:
         return false;
