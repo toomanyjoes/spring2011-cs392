@@ -1,4 +1,4 @@
-/* ******************************************************************
+ï»¿/* ******************************************************************
    class      : JCodePane
    description: a complete code editor with syntax coloring and
                 an extended command set
@@ -527,12 +527,12 @@ public class JCodePane extends JEditorPane
    */
   /*private final static boolean isAltGrKey(char c) {
     switch (c) {
-      case '²': case '³':
+      case 'Â²': case 'Â³':
 	  case '{': case '}':
 	  case '[': case ']':
-	  case '@': case '€':
+	  case '@': case 'â‚¬':
 	  case '~': case '|':
-      case 'µ': case '\\':
+      case 'Âµ': case '\\':
         return true;
       default:
         return false;
