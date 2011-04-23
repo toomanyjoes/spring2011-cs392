@@ -14,6 +14,7 @@
     <property name="dir.ahead"           location="${basedir}/fop-v2011.02.12/ahead"/>
     <property name="dir.ahead.build.lib" location="${dir.ahead}/build/lib"/>
     <property name="dir.ahead.build.bin" location="${dir.ahead}/build/bin"/>
+    <property name="dir.ahead.javacc"    location="${dir.ahead}/miscellaneous/javacc"/>
     
     <property name="dir.gpl.src"         location="${basedir}/fop-v2011.02.12/Tut-Demos/8GG"/>
     
@@ -23,8 +24,8 @@
     <property name="webdsl.src.jak"      location="${webdsl.src}/jak"/>
 
     <property name="dir.build"           location="${basedir}/build"/>  <!-- drop the contents of this folder on your server -->
-    <property name="dir.build.lib"	     location="${dir.build}/lib"/>
-    <property name="dir.build.bin"	     location="${dir.build}/bin"/>
+    <property name="dir.build.lib"	 location="${dir.build}/lib"/>
+    <property name="dir.build.bin"	 location="${dir.build}/bin"/>
     <property name="dir.build.classes"	 location="${dir.build}"/>
     <property name="dir.build.js"        location="${dir.build}/js"/>
     <property name="dir.build.css"       location="${dir.build}/css"/>
@@ -48,8 +49,15 @@
 
     <target
             name="ahead"
+            depends="setPerms"
             description="Builds the entire AHEAD Tool Suite.">
         <ant dir="${dir.ahead}" inheritall="false"/>
+    </target>
+    
+    <target
+            name="setPerms"
+            description="sets permissions to build ahead">
+        <chmod dir="${dir.ahead.javacc}/bin" includes="*" perm="u+x"/>
     </target>
     
     <target
