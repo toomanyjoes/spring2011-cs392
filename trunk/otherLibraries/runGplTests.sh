@@ -3,18 +3,18 @@
 GRAPH=$1
 TESTS=`ls gplPrograms`
 
-rm -rf gplResluts
-mkdir gplResults
+rm -rf results/gplResluts
+mkdir results/gplResults
 cd gplPrograms
 for test in ${TESTS}
 do
-    rm -f ${test}.txt
+    rm -f results/gplResults/${test}.${GRAPH}.txt
     cd ${test}
     echo "running ${test}"
-    for count in `seq 5`
+    for count in `seq 5000`
     do
         echo "  run number: ${count}"
-        ../../runTest.sh gpl.Main "../../${GRAPH} v1" ../../gplResults/${test}.txt
+        ../../runTest.sh gpl.Main "../../${GRAPH} v1" ../../results/gplResults/${test}.${GRAPH}.txt
     done
     cd ..
 done

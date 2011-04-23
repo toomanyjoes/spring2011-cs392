@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=us-ascii" http-equiv="Content-Type" />
+
+        <title>WebGuiDsl for the Graph Product Line</title>
+        <meta content="Samuel Palmer and Joe Elizondo" name="author" />
+        <meta content="Installation for WebGuiDsl" name="description" />
+    </head>
+    <body>
+        <div id="title" style="text-align: center">
+            <h1>WebGuiDsl for GPL Installation</h1>
+            <h3>Samuel Palmer and Joe Elizondo</h3>
+            <a href="mailto:spalmer@mail.utexas.edu">spalmer@mail.utexas.edu</a>, <a href="mailto:elizondo@cs.utexas.edu">elizondo@cs.utexas.edu</a>
+            <br/><br/>
+        </div>
+        This project includes a new feature in guidsl called webtool. The new feature has only been tested with v2011.02.12 of the ATS. Therefore, this project will require you to have JDK 1.7.0 and Ant 1.8.2.
+        <br/><br/>
+        To build and deploy WebGuiDsl for GPL:
+        <ol>
+            <li>
+                Execute the following command from the root directory:
+                <br/><code>ant all</code><br/>
+                This will create a directory named build in the root directory.<br/><br/>
+            </li>
+            <li>
+                Copy the contents of the build directory to your desired installation directory. It should be accessible to the web server. e.g. /u/your_username/public_html<br/><br/>
+            </li>
+            <li>
+                Create a symbolic link in your installation directory to your JDK 1.7.0 called jdk1.7.0
+                <br/>e.g. <code>ln -s /u/your_username/jdk1.7.0 /u/your_username/public_html/jdk1.7.0</code><br/><br/>
+            </li>
+            <li>
+                Execute the setPerms.sh script in the installation directory. This script will ensure that your JDK is world executable as well as setting appropriate read/execute permissions for everything else needed. One thing that should be noted is that the tmp directory will be world writable. This is necessary for the www user to create files during composition and compilation.<br/><br/>
+            </li>
+        </ol>
+        At this point WebGuiDsl for GPL should be ready to be used. If you installed it in /u/your_username/public_html in the UTCS domain you can access it at http://www.cs.utexas.edu/~your_username/gpl.html
+    </body>
+    
+</html>

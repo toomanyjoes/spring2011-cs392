@@ -3,6 +3,7 @@ import java.io.*;
 import java.util.*;
 import com.google.gson.*;
 
+// Taken from Tool.jak:
 // This class provides a programming-interface to guidsl,
 // and avoids the display of the GUI itself.  It is to be used
 // for invoking the functionality of a guidsl tool.
@@ -16,15 +17,16 @@ import com.google.gson.*;
 // if (tool.modelDebug(t, output)) ... else ...;
 
 /**
-* This class provides an entry-point for use in with a CGI script which
-* is useful in restrictive web publishing environments.
+* This class provides a programming interface to GuiDsl. It provides
+* methods useful for use in web applications. e.g. modelExplanation
+* returns a serialized JSON object.
 * 
 * @author Samuel Palmer
 */
 public class WebTool {
     cnfModel model;
 
-    public WebTool ( String modelFileName ) {
+    public WebTool( String modelFileName ) {
 
         // Step 1: open the guidsl model file 
 
@@ -53,63 +55,53 @@ public class WebTool {
         // Step 3: transform parse tree here into the internal format
 
         try {
-           Main.process( inputRoot );
+            Main.process( inputRoot );
         }
-		  catch( SemanticException e ) {
+        catch( SemanticException e ) {
             int errorCnt = Util.errorCount();
-		      Util.fatalError( errorCnt + " error(s) found");
-		  }
+            Util.fatalError( errorCnt + " error(s) found" );
+        }
 
-		  // Step 4: initialize any additional state variables
+        // Step 4: initialize any additional state variables
 
         model = cnfModel.init();
 
     } // end constructor
 
-   /**
-    *  @return serialized JSON Map of variable name/value explanation pairs   
-    */
-   public String modelExplanation( List selectedFeatures ) {
-       processUserSelections(selectedFeatures);
-       SATSolver s = new SATSolver(); 
-       //List<variable> vars;
-       Map reasonMap = new HashMap();
-       try {
-         //solverTest.createOutputFile( model, test );
-         //           solverTest.checkModel();
-         grammar.propagate();
-         s.solve( solverTest.input2SATSolver );
-         int[] sModel = s.solver.model();
-         //vars = new ArrayList(sModel.length);
-         //System.out.println("v "+reader.decode(model));
+    /**
+     *  Runs SAT solver with features in selectedFeatures included.
+     *  @param selectedFeatures List of Strings containing all selected features
+     *  @return serialized 2D JSON associative array. First dimension is variable name. Second dimension is 'set', 'chg', or 'exp' which indicate if the 
+     *  is set, if the variable can be changed by the user, and an explination why the variable is set or not set, respectively.    
+     */
+    public String modelExplanation( List selectedFeatures ) {
+        for( Iterator it = selectedFeatures.iterator(); it.hasNext(); ) {
+            String n = ( String )it.next();
+            grammar.UserSelections.add( variable.find( n ) );
+        }
+        SATSolver s = new SATSolver();
+        Map reasonMap = new HashMap();
+        try {
+            grammar.propagate();
+            s.solve( solverTest.input2SATSolver );
+            int[] sModel = s.solver.model();
 
-         for(Iterator it = variable.Vtable.values().iterator(); it.hasNext();) {
-            variable var = (variable)it.next();
-                    //System.out.println("\n\n" + var.name);
-                 String explanation = var.explainValue();
-                 if(!explanation.isEmpty()) {
-                    boolean isSet = var.value == variable.T ? true : false;
-                    //boolean isChangable = explanation.indexOf(var.name + " because set by user") != -1;
-                    boolean isChangable = selectedFeatures.contains(var.name);
-                    reasonMap.put(var.name, new VariableDescription(isSet, isChangable, explanation));
-                 }
-         }
-       } catch(Exception e) {
+            for( Iterator it = variable.Vtable.values().iterator(); it.hasNext(); ) {
+                variable var = ( variable )it.next();
+                String explanation = var.explainValue();
+                if( !explanation.isEmpty() ) {
+                    boolean isSet = (var.value == variable.T);
+                    boolean isChangable = selectedFeatures.contains( var.name );
+                    reasonMap.put( var.name, new VariableDescription( isSet, isChangable, explanation ) );
+                }
+            }
+        }
+        catch( Exception e ) {
             e.printStackTrace();
-       }
+        }
         
         Gson gson = new Gson();
-        String result = gson.toJson(reasonMap);
-        //System.out.println(result);
-		return result;
-   }
-   
-   private void processUserSelections(List selectedFeatures) {
-        for(Iterator it = selectedFeatures.iterator(); it.hasNext();) {
-            String n = (String)it.next();
-            //variable var = variable.find(n);
-            //var.justify();
-            grammar.UserSelections.add(variable.find(n));
-        }
-   }
+        String result = gson.toJson( reasonMap );
+        return result;
+    }
 }

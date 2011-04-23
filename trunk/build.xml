@@ -79,6 +79,7 @@
                 <include name="*.py"/>
                 <include name="*.html"/>
                 <include name="*.m"/>
+                <include name="setPerms.sh"/>
             </fileset>
         </copy>
         <copy todir="${dir.build.bin}">
