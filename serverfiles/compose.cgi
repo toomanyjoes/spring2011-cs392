@@ -16,23 +16,26 @@ def main():
       stdout=""
       stderr=""
       rootPath = os.getcwd()
-      os.putenv("PATH", rootPath+"/jdk1.7.0/bin:"+rootPath+"/bin:.:"+os.getenv("PATH"))
 
-      cgitb.enable()
+      #cgitb.enable()
       features = makeFeatureList(cgi.FieldStorage())
       tempdir = tempfile.mkdtemp("", "tmp", "tmp")
       composecmd = ["../bin/composer", "--target=../"+tempdir+"/gpl"]
       composecmd.extend(features)
-      stdout += ' '.join(composecmd)
-      writeLog(stdout,stderr)
+      
+      # debugging stuff
+      #stdout += ' '.join(composecmd)
+      #writeLog(stdout,stderr)
 
       os.chdir("jak")
       proc = subprocess.Popen(composecmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       stdout1,stderr1 = proc.communicate()   # execute process and capture output
       os.chdir(rootPath)
-      stdout += stdout1 + "\n\nend compose stdout\n\ncurrent dir: " + os.getcwd() + "\n\n"
-      stderr += stderr1 + "\n\nend compose stderr\n\n"
-      writeLog(stdout,stderr)
+      
+      # debugging stuff
+      #stdout += stdout1 + "\n\nend compose stdout\n\ncurrent dir: " + os.getcwd() + "\n\n"
+      #stderr += stderr1 + "\n\nend compose stderr\n\n"
+      #writeLog(stdout,stderr)
       
       jak2javacmd = ["bin/jak2java"]
       for file in os.listdir(tempdir+"/gpl"):
@@ -41,9 +44,11 @@ def main():
       stdout += ' '.join(jak2javacmd)
       proc = subprocess.Popen(jak2javacmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       stdout1,stderr1 = proc.communicate()   # execute process and capture output
-      stdout += stdout1 + "\n\nend jak2java stdout\n\ncurrent dir: " + os.getcwd() + "\n\n"
-      stderr += stderr1 + "\n\nend jak2java stderr\n\n"
-      writeLog(stdout,stderr)
+      
+      # debugging stuff
+      #stdout += stdout1 + "\n\nend jak2java stdout\n\ncurrent dir: " + os.getcwd() + "\n\n"
+      #stderr += stderr1 + "\n\nend jak2java stderr\n\n"
+      #writeLog(stdout,stderr)
       
       # uncomment if you don't want to zip the .jak files
       #shutil.copytree(tempdir+"/gpl", tempdir+"/gpl/gpl", ignore=shutil.ignore_patterns('*.jak'))
@@ -57,22 +62,25 @@ def main():
       proc = subprocess.Popen(javaccmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       stdout1,stderr1 = proc.communicate()   # execute process and capture output
       
-      stdout += stdout1 + "\nend javaccmd stdout\n"
-      stderr += stderr1 + "\nend javaccmd stderr\n"
-      writeLog(stdout,stderr)
+      # debugging stuff
+      #stdout += stdout1 + "\nend javaccmd stdout\n"
+      #stderr += stderr1 + "\nend javaccmd stderr\n"
+      #writeLog(stdout,stderr)
       
       xhtml2htmlcmd = ["jdk1.7.0/bin/java", "-classpath", "lib/OnekinUtils-Standard.jar:lib/xak.jar", "org.onekin.util.Xhtml2html", tempdir+"/gpl/gpl"]
       proc = subprocess.Popen(xhtml2htmlcmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       stdout1,stderr1 = proc.communicate()   # execute process and capture output
-      stdout += "\n\n" + ' '.join(xhtml2htmlcmd)
-      stdout += stdout1 + "\nend xhtml2htmlcmd stdout\n"
-      stderr += stderr1 + "\nend xhtml2htmlcmd stderr\n"
-      writeLog(stdout,stderr)
+      
+      # debugging stuff
+      #stdout += "\n\n" + ' '.join(xhtml2htmlcmd)
+      #stdout += stdout1 + "\nend xhtml2htmlcmd stdout\n"
+      #stderr += stderr1 + "\nend xhtml2htmlcmd stderr\n"
+      #writeLog(stdout,stderr)
       
       makeZip(tempdir)
 
       # set permissions for debugging
-      setPermissions(tempdir)
+      #setPermissions(tempdir)
       
       shutil.rmtree(tempdir, True)
 

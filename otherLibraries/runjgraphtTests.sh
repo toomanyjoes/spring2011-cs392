@@ -3,16 +3,16 @@
 GRAPH=$1
 TESTS="jgraphtTests.jgraphtConnectedTest jgraphtTests.jgraphtCycleTest jgraphtTests.jgraphtMstKruskalTest jgraphtTests.jgraphtStrongCTest"
 
-rm -rf jgrapftResults
-mkdir jgraphtResults
+rm -rf results/jgrapftResults
+mkdir results/jgraphtResults
 for test in ${TESTS}
 do
-    rm -f ${test}.txt
+    rm -f results/jgraphtResults/${test}.${GRAPH}.txt
     echo "running ${test}"
-    for count in `seq 5`
+    for count in `seq 5000`
     do
         echo "  run number: ${count}"
-        ./runTest.sh ${test} ${GRAPH} jgraphtResults/${test}
+        ./runTest.sh ${test} ${GRAPH} results/jgraphtResults/${test}.${GRAPH}.txt
     done
 done
 

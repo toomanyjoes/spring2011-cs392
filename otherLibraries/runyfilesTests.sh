@@ -3,16 +3,16 @@
 GRAPH=$1
 TESTS="yfilesTests.yfilesCycleTest yfilesTests.yfilesMstKruskalTest yfilesTests.yfilesMstPrimTest yfilesTests.yfilesConnectedTest yfilesTests.yfilesStrongCTest"
 
-rm -rf yfilesResults
-mkdir yfilesResults
+rm -rf results/yfilesResults
+mkdir results/yfilesResults
 for test in ${TESTS}
 do
-    rm -f yfilesResults/${test}.txt
+    rm -f results/yfilesResults/${test}.${GRAPH}.txt
     echo "running ${test}"
-    for count in `seq 5`
+    for count in `seq 5000`
     do
         echo "  run number: ${count}"
-        ./runTest.sh ${test} ${GRAPH} yfilesResults/${test}.txt
+        ./runTest.sh ${test} ${GRAPH} results/yfilesResults/${test}.${GRAPH}.txt
     done
 done
 
