@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GRAPHS="TestV500E45K.bench randomGraphs/randommultigraph.txt randomGraphs/randompseudograph.txt randomGraphs/randomsimplegraph.txt randomGraphs/simplelineargraph.txt"
+GRAPHS="randomGraphs/randommultigraph.txt randomGraphs/randompseudograph.txt randomGraphs/randomsimplegraph.txt randomGraphs/simplelineargraph.txt"
 
 for graph in ${GRAPHS}
 do
