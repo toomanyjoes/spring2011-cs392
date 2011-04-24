@@ -10,10 +10,10 @@ for test in ${TESTS}
 do
     rm -f results/jgraphtResults/${test}.${GRAPHNAME}.txt
     echo "running ${test}"
-    for count in `seq 500`
-    do
+#    for count in `seq 500`
+#    do
         echo "  run number: ${count}  jgrapht ${test} ${GRAPHNAME}"
         ./runTest.sh ${test} ${GRAPH} results/jgraphtResults/${test}.${GRAPHNAME}.txt
-    done
+#    done
 done
 

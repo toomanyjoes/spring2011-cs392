@@ -10,10 +10,10 @@ for test in ${TESTS}
 do
     rm -f results/jungResults/${test}.${GRAPHNAME}.txt
     echo "running jung ${test} ${GRAPH}"
-    for count in `seq 500`
-    do
+#    for count in `seq 500`
+#    do
         echo "  run number: ${count}  jung ${test} ${GRAPHNAME}"
         ./runTest.sh ${test} ${GRAPH} results/jungResults/${test}.${GRAPHNAME}.txt
-    done
+#    done
 done
 

@@ -31,11 +31,13 @@ public class jdslMstPrimTest extends IntegerPrimTemplate {
         
         jdslMstPrimTest mstTest = new jdslMstPrimTest();
         mstTest.edgeWeights = reader.readGraph((Graph)graph);
+        for(int i=0; i<5000; i++) {
         long beginTime = System.currentTimeMillis();
         mstTest.executeAll(graph, graph.aVertex());
         long endTime = System.currentTimeMillis();
         //System.out.println(" Cycle? " + it.hasNext());
         System.out.println("Time elapsed: " + (endTime-beginTime));
+        }
     }
     
     protected int weight(Edge e) {

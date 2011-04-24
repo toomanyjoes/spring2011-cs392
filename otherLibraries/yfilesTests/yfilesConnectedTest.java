@@ -19,11 +19,13 @@ public class yfilesConnectedTest {
         GraphReader reader = new GraphReader(false, args[0]);
         reader.readGraph(graph);
         
+        for(int i = 0; i < 5000; i++) {
         long beginTime = System.currentTimeMillis();
         boolean connected = GraphConnectivity.isConnected(graph);
         long endTime = System.currentTimeMillis();
         System.out.println(" Connected? " + connected);
         System.out.println("Time elapsed: " + (endTime-beginTime));
+        }
     }
     
 }

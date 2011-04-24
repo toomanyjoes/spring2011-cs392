@@ -19,11 +19,13 @@ public class yfilesCycleTest {
         GraphReader reader = new GraphReader(false, args[0]);
         reader.readGraph(graph);
         
+        for(int i=0; i<5000; i++) {
         long beginTime = System.currentTimeMillis();
         boolean cycle = GraphChecker.isCyclic(graph);
         long endTime = System.currentTimeMillis();
         System.out.println(" Cycle? " + cycle);
         System.out.println("Time elapsed: " + (endTime-beginTime));
+        }
     }
     
 }

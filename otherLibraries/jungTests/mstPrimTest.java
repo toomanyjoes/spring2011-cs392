@@ -29,12 +29,14 @@ public class mstPrimTest {
             }
         };
         PrimMinimumSpanningTree mst = new PrimMinimumSpanningTree(new ConstantFactory<Graph>(graph), wtTransformer);
+        for(int i=0; i<5000; i++) {
         System.out.println("starting clock");
         long beginTime = System.currentTimeMillis();
         mst.transform(graph);
         long endTime = System.currentTimeMillis();
         //System.out.println(" StronglyConnected? " + connected);
         System.out.println("Time elapsed: " + (endTime-beginTime));
+        }
     }
 }
 
