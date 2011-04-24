@@ -22,6 +22,7 @@ public class jgraphtMstKruskalTest {
         GraphReader reader = new GraphReader(true, args[0]);
         reader.readGraph(graph);
         
+        for(int i=0; i<5000; i++) {
         long beginTime = System.currentTimeMillis();
         KruskalMinimumSpanningTree<Object, DefaultWeightedEdge> mstAlgo = new KruskalMinimumSpanningTree<Object, DefaultWeightedEdge>(graph);
         mstAlgo.getEdgeSet();
@@ -29,6 +30,7 @@ public class jgraphtMstKruskalTest {
         long endTime = System.currentTimeMillis();
         //System.out.println("cost " + cost);
         System.out.println("Time elapsed: " + (endTime-beginTime));
+        }
     }
 }
 

@@ -23,12 +23,14 @@ public class jdslCycleTest {
         reader.readGraph(graph);
         
         FindCycleDFS cycleDetector = new FindCycleDFS();
+        for(int i=0; i<5000; i++) {
         long beginTime = System.currentTimeMillis();
         cycleDetector.execute(graph, graph.aVertex());
         ObjectIterator it = cycleDetector.getCycle();
         long endTime = System.currentTimeMillis();
         System.out.println(" Cycle? " + it.hasNext());
         System.out.println("Time elapsed: " + (endTime-beginTime));
+        }
     }
 }
 

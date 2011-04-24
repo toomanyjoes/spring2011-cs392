@@ -23,11 +23,13 @@ public class jgraphtCycleTest {
         reader.readGraph(graph);
         
         CycleDetector<Object, DefaultEdge> cycleDetector = new CycleDetector<Object, DefaultEdge>(graph);
+        for(int i=0; i<5000; i++) {
         long beginTime = System.currentTimeMillis();
         boolean cycle = cycleDetector.detectCycles();
         long endTime = System.currentTimeMillis();
         System.out.println(" Cycle? " + cycle);
         System.out.println("Time elapsed: " + (endTime-beginTime));
+        }
     }
 }
 
