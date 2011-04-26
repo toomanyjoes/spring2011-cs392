@@ -148,10 +148,11 @@ function clearSelections() {
 
 function sendSelections() {
     var selectedString = buildSelectedString();
+    selectedString += 'modelname=gpl.m';     // specific to gpl
     $.blockUI();
     $.ajax({ 
         type: 'GET',
-        url: 'gpl.cgi', 
+        url: 'webguidsl.cgi', 
         cache: false,
         dataType: 'json',
         data: selectedString,
