@@ -22,7 +22,7 @@ public class jgraphtMstKruskalTest {
         GraphReader reader = new GraphReader(true, args[0]);
         reader.readGraph(graph);
         
-        for(int i=0; i<5000; i++) {
+        for(int i=0; i<500; i++) {
         long beginTime = System.currentTimeMillis();
         KruskalMinimumSpanningTree<Object, DefaultWeightedEdge> mstAlgo = new KruskalMinimumSpanningTree<Object, DefaultWeightedEdge>(graph);
         mstAlgo.getEdgeSet();

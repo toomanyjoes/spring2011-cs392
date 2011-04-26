@@ -23,7 +23,7 @@ public class jgraphtConnectedTest {
         reader.readGraph(graph);
         
         ConnectivityInspector<Object, DefaultEdge> inspector = new ConnectivityInspector<Object, DefaultEdge>(graph);
-        for(int i=0; i<5000; i++) {
+        for(int i=0; i<500; i++) {
         long beginTime = System.currentTimeMillis();
         inspector.connectedSets();
         long endTime = System.currentTimeMillis();
