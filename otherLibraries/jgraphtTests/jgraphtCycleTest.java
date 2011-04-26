@@ -23,7 +23,7 @@ public class jgraphtCycleTest {
         reader.readGraph(graph);
         
         CycleDetector<Object, DefaultEdge> cycleDetector = new CycleDetector<Object, DefaultEdge>(graph);
-        for(int i=0; i<5000; i++) {
+        for(int i=0; i<500; i++) {
         long beginTime = System.currentTimeMillis();
         boolean cycle = cycleDetector.detectCycles();
         long endTime = System.currentTimeMillis();
