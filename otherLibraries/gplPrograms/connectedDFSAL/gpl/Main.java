@@ -84,6 +84,7 @@ public class Main {
             edge.setWeight( weights[ i ] );
         }
 
+        for(int j = 0; j < 500; j++) {
         // Executes the selected features
         g.startProfile();
         g.run( g.findsVertex( args[1] ) );
@@ -97,7 +98,7 @@ public class Main {
 
         g.endProfile();
         System.out.println( "Total Time: " + totalTime );
-
+        }
     } // main
 
 }

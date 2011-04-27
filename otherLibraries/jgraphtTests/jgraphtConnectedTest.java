@@ -24,6 +24,7 @@ public class jgraphtConnectedTest {
         
         ConnectivityInspector<Object, DefaultEdge> inspector = new ConnectivityInspector<Object, DefaultEdge>(graph);
         for(int i=0; i<500; i++) {
+        inspector.connectedSets = null;
         long beginTime = System.currentTimeMillis();
         inspector.connectedSets();
         long endTime = System.currentTimeMillis();

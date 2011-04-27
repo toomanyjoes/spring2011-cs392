@@ -20,7 +20,7 @@ public class yfilesMstPrimTest {
         GraphReader reader = new GraphReader(true, args[0]);
         DataProvider dp = reader.readGraph(graph);
         
-        for(int i=0; i<5000; i++) {
+        for(int i=0; i<500; i++) {
         long beginTime = System.currentTimeMillis();
         EdgeList el = SpanningTrees.prim(graph, dp);
         long endTime = System.currentTimeMillis();

@@ -14,7 +14,7 @@ public class SimpleLinearGraph {
 	//static Graph<Object, DefaultWeightedEdge> randomGraph;
 
     //Number of vertices
-    static int vsize = 500;
+    static int vsize = 5000;
     // edges = Graph.edgeSet.size()
     static int reserved = 1;
 
@@ -84,7 +84,7 @@ public class SimpleLinearGraph {
         for(int i = 0; i < vsize-1; i++){
         	pw.println((int)(Math.random() * 100));
         }
-    
+        pw.flush();
         pw.close();
     }
 

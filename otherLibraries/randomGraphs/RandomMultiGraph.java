@@ -14,10 +14,14 @@ public class RandomMultiGraph {
 	static Graph<Object, DefaultWeightedEdge> randomGraph;
 
     //Number of vertices
-    static int vsize = 1000;
+    static int vsize = 2000;
     
     /* max number of edges = inf, but we set it to n^2, where n is the number of vertices */
-    static int esize = (int)(Math.random() * (vsize*vsize));
+    //static int esize = (int)(Math.random() * (vsize*vsize));
+    static int minfactor = 100;
+    static int maxfactor = 110;
+    static double factor =  minfactor + Math.random() * (maxfactor - minfactor);
+    static int esize = (int)(vsize * factor);
     static int reserved = 1;
 
     //~ Methods ----------------------------------------------------------------
@@ -83,7 +87,8 @@ public class RandomMultiGraph {
         for(int i = 0; i < esize; i++){
         	pw.println((int)(Math.random() * 100));
         }
-    
+        pw.flush();
+        pw.close();
     }
 
     public static boolean replaceVertex(Object oldVertex, Object newVertex)

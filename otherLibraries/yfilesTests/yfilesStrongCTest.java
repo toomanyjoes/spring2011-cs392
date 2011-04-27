@@ -19,7 +19,7 @@ public class yfilesStrongCTest {
         GraphReader reader = new GraphReader(false, args[0]);
         reader.readGraph(graph);
         
-        for(int i=0; i<5000; i++) {
+        for(int i=0; i<500; i++) {
         long beginTime = System.currentTimeMillis();
         boolean connected = GraphConnectivity.isStronglyConnected(graph);
         long endTime = System.currentTimeMillis();

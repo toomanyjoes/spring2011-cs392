@@ -38,6 +38,7 @@ public class jdslMstPrimTest extends IntegerPrimTemplate {
         //System.out.println(" Cycle? " + it.hasNext());
         System.out.println("Time elapsed: " + (endTime-beginTime));
         }
+        System.out.flush();
     }
     
     protected int weight(Edge e) {
