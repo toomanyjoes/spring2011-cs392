@@ -31,6 +31,7 @@ public class jdslCycleTest {
         System.out.println(" Cycle? " + it.hasNext());
         System.out.println("Time elapsed: " + (endTime-beginTime));
         }
+        System.out.flush();
     }
 }
 

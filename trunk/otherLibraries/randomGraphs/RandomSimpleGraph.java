@@ -14,10 +14,14 @@ public class RandomSimpleGraph {
 	static Graph<Object, DefaultWeightedEdge> randomGraph;
 
     //Number of vertices
-    static int vsize = 1000;
+    static int vsize = 2000;
     
     /* max number of edges = n(n-1)/2 */
-    static int esize = (int)(Math.random() * (vsize*(vsize-1)/2));
+    //static int esize = (int)(Math.random() * (vsize*(vsize-1)/2));
+    static int minfactor = 100;
+    static int maxfactor = 110;
+    static double factor =  minfactor + Math.random() * (maxfactor - minfactor);
+    static int esize = (int)(vsize * factor);
     static int reserved = 1;
 
     //~ Methods ----------------------------------------------------------------
@@ -83,6 +87,8 @@ public class RandomSimpleGraph {
         for(int i = 0; i < esize; i++){
         	pw.println((int)(Math.random() * 100));
         }
+        pw.flush();
+        pw.close();
     
     }
 

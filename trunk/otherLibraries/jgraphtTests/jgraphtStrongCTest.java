@@ -23,13 +23,15 @@ public class jgraphtStrongCTest {
         reader.readGraph(graph);
         
         StrongConnectivityInspector<Object, DefaultEdge> inspector = new StrongConnectivityInspector<Object, DefaultEdge>(graph);
-        for(int i=0; i<10; i++) {
+        for(int i=0; i<500; i++) {
+        inspector.stronglyConnectedSubgraphs = null;
         long beginTime = System.currentTimeMillis();
         inspector.stronglyConnectedSubgraphs();
         long endTime = System.currentTimeMillis();
         //System.out.println(" StronglyConnected? " + connected);
         System.out.println("Time elapsed: " + (endTime-beginTime));
         }
+        System.out.flush();
     }
 }
 
