@@ -91,7 +91,7 @@ public class Main {
 
         g.stopProfile();
         long totalTime = System.currentTimeMillis() - beginning;
-        g.display();
+        //g.display();
         g.resumeProfile();
 
         // End profiling
