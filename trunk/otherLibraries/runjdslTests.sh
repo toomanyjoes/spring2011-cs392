@@ -2,7 +2,8 @@
 
 GRAPH=$1
 GRAPHNAME=`echo "${GRAPH}" | sed 's/\//./g'`
-TESTS="jdslTests.jdslCycleTest jdslTests.jdslMstPrimTest"
+#TESTS="jdslTests.jdslCycleTest jdslTests.jdslMstPrimTest"
+TESTS="jdslTests.jdslMstPrimTest"
 
 #rm -rf results/jdslResults
 #mkdir results/jdslResults

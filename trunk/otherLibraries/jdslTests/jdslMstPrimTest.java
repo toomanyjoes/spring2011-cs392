@@ -31,7 +31,9 @@ public class jdslMstPrimTest extends IntegerPrimTemplate {
         
         jdslMstPrimTest mstTest = new jdslMstPrimTest();
         mstTest.edgeWeights = reader.readGraph((Graph)graph);
-        for(int i=0; i<100; i++) {
+        mstTest.executeAll(graph, graph.aVertex());
+        mstTest.executeAll(graph, graph.aVertex());
+        for(int i=0; i<500; i++) {
         long beginTime = System.currentTimeMillis();
         mstTest.executeAll(graph, graph.aVertex());
         long endTime = System.currentTimeMillis();
